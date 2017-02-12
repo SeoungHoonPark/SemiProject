@@ -1,18 +1,95 @@
 package Message;
+import java.awt.BorderLayout;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
+import javax.swing.JButton;
 /*
  * 	메시지 메인 화면 구성
  */
-import javax.swing.*;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
-public class BBMessageMain  /* extends JPanel */ extends JFrame {
+import Main.BBMain;
 
+public class BBMessageMain  extends JFrame {
+	BBMain main;
+	JPanel fromPanel;		// 받은 쪽지함
+	JPanel toPanel; 			// 보낸 쪽지함
+	JButton reflashBtn; 		// 새로고침 버튼
+	JButton MessageBtn; 	// 메시지폼 호출 버튼
+	JTable fromTable, toTable;						// 받은 탭쪽 테이블, 보낸 탭쪽 테이블
+	DefaultTableModel fromModel, toModel;	// 받은 탭쪽 모델, 보낸 탭쪽 모델
+	
+	// BookBasket메인과 상호참조를 위한 생성자
+	public BBMessageMain(BBMain bbMain){
+		main = bbMain;
+		new BBMessageMain();
+	}
+	
+	// 전체적인 틀(layout)을 그려주는 생성자 
 	public BBMessageMain() {
-		// TODO Auto-generated constructor stub
+		this.setTitle("메세지함");
+		// 메시지 프레임창을 종료하기 위한 함수
+		this.addWindowListener(new WindowAdapter(){
+			public void windowClosing(WindowEvent e){
+				BBMessageMain.this.dispose();
+			}
+		});
+		
+		// 전체 탭 구성 영역
+		JTabbedPane tPane = new JTabbedPane(2);	// 탭  메인 패널
+		
+		fromPanel = new JPanel(new  BorderLayout());
+		toPanel = new JPanel(new BorderLayout());
+		
+		JPanel p1 = new JPanel();
+		
+		reflashBtn = new JButton("새로고침");
+		//MessageBtn = new JButton("메시지 쓰기");
+		p1.add(reflashBtn);
+		//p1.add(MessageBtn);	
+		
+		//받은 쪽지함 테이블
+		String[] fromTitle = {"번호", "제목", "보낸 사람", "날짜"};
+		fromModel = new DefaultTableModel(fromTitle, 1);
+		fromTable = new JTable( fromModel);
+		fromTable.addMouseListener(new TableEvent());
+		JScrollPane fromSp = new JScrollPane(fromTable);
+		fromPanel.add(fromSp);
+		
+		//보낸 쪽지함 테이블
+		String[] toTitle = {"번호", "제목", "받은 사람", "날짜"};
+		toModel = new DefaultTableModel(toTitle, 1);
+		toTable = new JTable(toModel);
+		toTable.addMouseListener(new TableEvent());
+		JScrollPane toSp = new JScrollPane(toTable);
+		toPanel.add(toSp);
+		
+		tPane.add("받은 쪽지함", fromPanel);					// 탭중 1 .. 받은 쪽지함 리스트를 볼 수 있음
+		tPane.add("보낸 쪽지함", toPanel);						// 탭중 2 .. 보낸 쪽지함 리스트를 볼 수 있음
+		
+		this.add("Center", tPane);
+		this.add("South", p1);		
+		this.setSize(600, 570);
+		this.setResizable(false);
+		this.setVisible(true);
 	}
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+		new BBMessageMain();
 	}
-
+	
+	class TableEvent extends MouseAdapter{
+		public void mousePressed(MouseEvent e){
+			// row를 선택하면 쪽지 확인 창이 띄워진다.
+			new BBMessageViewDlg();
+		}
+	}
 }
