@@ -27,8 +27,9 @@ public class BBMain extends JFrame {
 	GradationPanel nameP;
 	JButton logoutB, msgBoxB;
 	JLabel msgL1, msgL2;
-	String name ="";
-	int msgNum, bookNum;
+	String name ="전은석";
+	int msgNum = 3 ;
+	int bookNum = 1;
 	public BBMain() {
 		setTitle(name + " 님의 책바구니");	// 메인 화면 제목표시줄의 제목 지정...
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	// 창닫기 옵션지정...
@@ -42,8 +43,6 @@ public class BBMain extends JFrame {
 		int locH = (winSize.height - frameSize.height)/2;
 		setLocation(locW, locH);
 		
-		System.out.println(locW+ " , " + locH);
-		
 //		loginDlg = new BBLoginDlg();
 		//	자기 자신은 출력하지 말고
 //		loginDlg.setVisible(true);
@@ -52,7 +51,7 @@ public class BBMain extends JFrame {
 		// 책 검색, 등록, 예약 클래스 생성자 함수 호출...
 		bookSearchMain = new BBBookSearch(this);
 		bookRegDlgMain = new BBBookRegDlg(this);
-		//bookRentalMain = new BBRentalDlg(this);
+		bookRentalMain = new BBRentalDlg(this);
 		
 		bbMainTP = new JTabbedPane();	// 메인에 들어갈 JTabbedPane 생성해준다.
 		bbMainTP.add(bookSearchMain, "책 검 색");	// 책 검색 클래스 탭에 넣어준다.
@@ -71,7 +70,6 @@ public class BBMain extends JFrame {
 		JPanel loginStatusP = new JPanel(new BorderLayout());
 		loginStatusP.setPreferredSize(new Dimension(190, 300));
 		
-		name = "전은석";
 		JPanel loginInfoP = new JPanel();	// 로그인 정보 패널...
 		JPanel sideTblankP = new JPanel();	// 디자인을 위한 빈 패널..
 		sideTblankP.setPreferredSize(new Dimension(200, 11));
@@ -146,7 +144,7 @@ public class BBMain extends JFrame {
 		// 이 클래스는 JFrame을 상속 받았으므로 JFrame의 역활도 한다.
 		// 따라서 여기서 JTabbedPane 을 넣어주기만 하면 된다.
 		add(mainSide, "East");	// 사이드 메뉴들을 넣어준다.
-		
+				
 		setVisible(true);	// 일단 화면 작업에서는 보여야 되기때문에 ... 나중에 이 줄은 삭제할 예정...
 		
 	}
