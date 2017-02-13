@@ -13,7 +13,7 @@ public class BBBookSearch extends JPanel {
 	JButton rsvtB, bEditB, bDeleteB, psblSrchB, ttlSrchB, myBookB, bNameSrchB;
 	JTable bSrchTable;
 	public BBBookSearch(BBMain m) {
-		main = m ;
+//		main = m ;
 		
 		setLayout(new BorderLayout());
 		
@@ -83,15 +83,15 @@ public class BBBookSearch extends JPanel {
 		add(sideP, "West");
 		add(centerMainP, "Center");
 		
-/*		JFrame f = new JFrame();
-		f.add(this);
-		f.setSize(600, 570);
-		f.setVisible(true);
-		f.pack();*/
+//		JFrame f = new JFrame();
+//		f.add(this);
+//		f.setSize(600, 570);
+//		f.setVisible(true);
+//		f.pack();
 	}
-	/*
-	public static void main(String[] args){
-		new BBBookSearch();
-	}
-*/
+	
+//	public static void main(String[] args){
+//		new BBBookSearch();
+//	}
+
 }

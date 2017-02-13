@@ -1,13 +1,17 @@
 package Book;
+import Book.BBBookSearch;
 import javax.swing.*;
 import java.awt.*;
 /*
  * 	책정보 수정 화면
  *  필요한 항목: 도서명, 저자, 출판사, 구입날짜, 책상태, 수정버튼
  */
-public class BBModifyDlg /* extends JDialog */ extends JFrame  {
-
-	public BBModifyDlg() {
+public class BBModifyDlg extends JFrame  {
+//	BBBookSearch main;
+	
+	public BBModifyDlg(/*BBBookSearch m*/) {
+//		main = m;
+		
 		JFrame f = new JFrame();
 		f.setTitle("등록한 책 수정");
 		f.setLayout(null);
@@ -92,7 +96,7 @@ public class BBModifyDlg /* extends JDialog */ extends JFrame  {
 	            UIManager.put(key, f);
 	    }
 	}
-	public static void main(String[] args) {
-		new BBModifyDlg();
-	}
+//	public static void main(String[] args) {
+//		new BBModifyDlg();
+//	}
 }

@@ -1,39 +1,24 @@
 package Book;
-import java.awt.Color;
-import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.GridLayout;
-
-import javax.swing.ButtonGroup;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JRadioButton;
-import javax.swing.JTextField;
-import javax.swing.UIManager;
-
+import java.awt.*;
+import javax.swing.*;
 import Main.BBMain;
 /*
  * 책등록 화면
  * 필요한 항목: 도서명, 저자, 출판사, 구입날짜, 책상태, 등록&취소버튼
  */
-public class BBBookRegDlg /* extends JDialog */ extends JFrame {
+public class BBBookRegDlg  extends JPanel {
 	BBMain main;
+	
 	public BBBookRegDlg(BBMain m) {
 		main = m;
-		JFrame f = new JFrame();
-		f.getContentPane().setBackground(Color.WHITE);
-		f.setLayout(null);
+
+		setLayout(null);
 		setUIFont(new javax.swing.plaf.FontUIResource("고딕", Font.PLAIN, 12));
 		// 라디오버튼 생성
 		ButtonGroup bg = new ButtonGroup();
 		JRadioButton sang = new JRadioButton("상");
-		sang.setBackground(Color.WHITE);
 		JRadioButton jung = new JRadioButton("중");
-		jung.setBackground(Color.WHITE);
 		JRadioButton ha = new JRadioButton("하");
-		ha.setBackground(Color.WHITE);
 		// 라벨 생성
 		JLabel Reg_label[] = new JLabel[7];
 		 Reg_label[0] = new JLabel("도서명");
@@ -60,7 +45,6 @@ public class BBBookRegDlg /* extends JDialog */ extends JFrame {
 		p0.add(sang);
 		p0.add(jung);
 		p0.add(ha);
-		p0.setBackground(Color.WHITE);
 
 		// 구입년도 칸 합치기
 		JPanel p2 = new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -68,7 +52,6 @@ public class BBBookRegDlg /* extends JDialog */ extends JFrame {
 		p2.add(Reg_label[4]); // "년"
 		p2.add(textF[4]); // 월 입력칸
 		p2.add(Reg_label[5]); // "월"
-		p2.setBackground(Color.WHITE);
 		
 		//라벨 묶기
 		JPanel p1 = new JPanel(new GridLayout(5,1,10,10));
@@ -78,7 +61,6 @@ public class BBBookRegDlg /* extends JDialog */ extends JFrame {
 		p1.add(Reg_label[3]);
 		p1.add(Reg_label[6]);
 		p1.setBounds(130, 80, 100, 200);
-		p1.setBackground(Color.WHITE);
 		
 		//텍스트필드 묶기
 		JPanel p3 = new JPanel(new GridLayout(5,1,10,10));
@@ -88,7 +70,6 @@ public class BBBookRegDlg /* extends JDialog */ extends JFrame {
 		p3.add(p2);
 		p3.add(p0);
 		p3.setBounds(230, 80, 200, 200);
-		p3.setBackground(Color.WHITE);
 		
 		// 버튼 묶기
 		JButton registerB = new JButton("등록");
@@ -104,18 +85,18 @@ public class BBBookRegDlg /* extends JDialog */ extends JFrame {
 		p4.add(registerB);
 		p4.add(cancelB);
 		p4.setBounds(190,350,200,30);
-		p4.setBackground(Color.WHITE);
 		
+		// 타이틀 설정
 		JLabel title = new JLabel("* 내가 보유한 책 등록하기");
 		title.setBounds(130, 20, 200, 50);
+
+		add(title);
+		add(p1);
+		add(p3);
+		add(p4);
 		
-		f.add(title);
-		f.add(p1);
-		f.add(p3);
-		f.add(p4);
-		f.setSize(600,570);
-		f.setVisible(true);
-		
+//		setSize(600,570);
+//		setVisible(false);
 	}
 	// 전체 폰트 설정
 	public static void setUIFont(javax.swing.plaf.FontUIResource f) {

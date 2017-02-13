@@ -1,28 +1,18 @@
 package Book;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.GridLayout;
-
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
-import javax.swing.UIManager;
-
-import Main.BBMain;
+import javax.swing.*;
+import Book.BBBookSearch;
+import java.awt.*;
+import java.util.*;
 /*
  * 	책 대여 예약 화면
  *  필요한 항목: 책주인, 신청도서, 저자, 메시지, 보내기버튼
  */
-public class BBRentalDlg /* extends JDialog */ extends JFrame {
-	BBMain main;
-	public BBRentalDlg(BBMain m) {
-		main = m;
+public class BBRentalDlg extends JFrame {
+//	BBBookSearch main;
+	
+	public BBRentalDlg(/*BBBookSearch m*/) {
+//		main = m;
+		
 		JFrame f = new JFrame();
 		f.setLayout(null);
 		f.setTitle("예약 메시지 보내기");
