@@ -73,13 +73,7 @@ public class BBBookRegDlg  extends JPanel {
 		
 		// 버튼 묶기
 		JButton registerB = new JButton("등록");
-		registerB.setBackground(new Color(051, 204, 204));
-		registerB.setBorderPainted(false);
-		registerB.setForeground(Color.WHITE);
 		JButton cancelB = new JButton("취소");
-		cancelB.setBackground(new Color(051, 204, 204));
-		cancelB.setBorderPainted(false);
-		cancelB.setForeground(Color.WHITE);
 		
 		JPanel p4 = new JPanel(new GridLayout(1,2,30,10));
 		p4.add(registerB);

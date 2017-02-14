@@ -7,27 +7,30 @@ import	javax.swing.table.*;
 import java.awt.*;
 import java.awt.event.*;
 import Main.*;
+
 public class BBBookSearch extends JPanel {
 	BBMain main;
+	BBModifyDlg bookMdfDlg;
+	BBRentalDlg rentalDlg;
 	
 	JButton rsvtB, bEditB, bDeleteB, psblSrchB, ttlSrchB, myBookB, bNameSrchB;
 	JTable bSrchTable;
 	public BBBookSearch(BBMain m) {
-//		main = m ;
+		main = m ;
 		
 		setLayout(new BorderLayout());
 		
 		JPanel sideP = new JPanel();	// 왼쪽 버튼이 들어갈 패널
 		JPanel sideBtnP = new JPanel(new GridLayout(3,1));
-		sideP.setPreferredSize(new Dimension(90,570));
-		sideBtnP.setPreferredSize(new Dimension(85,90));	// 왼쪽 버튼을 넣을 패널 
+		sideP.setPreferredSize(new Dimension(110,570));
+		sideBtnP.setPreferredSize(new Dimension(95,90));	// 왼쪽 버튼을 넣을 패널 
 		JPanel centerMainP = new JPanel(new BorderLayout());	// 왼쪽 전체 패널
 		JPanel centerBtnP = new JPanel();	// 테이블 밑에 들어갈 패널 
 		JPanel sideBlankP = new JPanel();	// 디자인을 위한 빈 패널
 		sideBlankP.setPreferredSize(new Dimension(5, 570));
 		
 		// 버튼을 만들어준다.
-		rsvtB = new JButton("대출 예약");
+		rsvtB = new JButton("대출예약");
 		bEditB = new JButton("책 수정");
 		bDeleteB = new JButton("책 삭제");
 		psblSrchB = new JButton("대출가능 검색");
@@ -51,18 +54,13 @@ public class BBBookSearch extends JPanel {
 //		bSrchTable.getColumn("예약 현황").setPreferredWidth(15);
 //		bSrchTable.getColumn("등 록 일").setPreferredWidth(50);
 		
+		/*
 		DefaultTableCellRenderer celAlignCenter = new DefaultTableCellRenderer();
 		celAlignCenter.setHorizontalAlignment(JLabel.CENTER);
 		celAlignCenter.setBackground(Color.decode("#2cb1ff"));
-//		celAlignCenter.setBorder(new LineBorder(Color.BLACK));
 		bSrchTable.getTableHeader().setDefaultRenderer(celAlignCenter);
 		bSrchTable.setGridColor(Color.gray);
-//		TableColumnModel tblClmModel = bSrchTable.getColumnModel();
-//		for (int i = 0 ; i < tblClmModel.getColumnCount(); i++) {
-//			tblClmModel.getColumn(i).setCellRenderer(celAlignCenter);
-//		}
-		String[] st1 = {"01", "홍길동", "박아지", "중상", "가능", "2017/02/12"};
-//		bSrchTable.(st1, 1);
+		*/
 		
 		
 		sideBtnP.add(rsvtB);
@@ -76,6 +74,15 @@ public class BBBookSearch extends JPanel {
 		centerBtnP.add(myBookB);
 		centerBtnP.add(bNameSrchB);
 		
+		BookSrchEvent evt = new BookSrchEvent();
+		rsvtB.addActionListener(evt);
+		bEditB.addActionListener(evt);
+		bDeleteB.addActionListener(evt);
+		psblSrchB.addActionListener(evt);
+		ttlSrchB.addActionListener(evt);
+		myBookB.addActionListener(evt);
+		bNameSrchB.addActionListener(evt);
+		
 		centerMainP.add(sideBlankP, "East");
 		centerMainP.add(tableScrlP, "Center");
 		centerMainP.add(centerBtnP, "South");
@@ -83,15 +90,42 @@ public class BBBookSearch extends JPanel {
 		add(sideP, "West");
 		add(centerMainP, "Center");
 		
-//		JFrame f = new JFrame();
-//		f.add(this);
-//		f.setSize(600, 570);
-//		f.setVisible(true);
-//		f.pack();
 	}
 	
 //	public static void main(String[] args){
 //		new BBBookSearch();
 //	}
+	
+	public void deleteProc(){
+		
+	}
+	
+	class BookSrchEvent implements ActionListener {
+		public void actionPerformed(ActionEvent e){
+			String comm = (String) e.getActionCommand();
 
+			if ( comm.equals("대출예약")){
+				rentalDlg = new BBRentalDlg(BBBookSearch.this);
+			}
+			else if ( comm.equals("책 수정")){
+				bookMdfDlg = new BBModifyDlg(BBBookSearch.this);
+			}
+			else if ( comm.equals("책 삭제")){
+				deleteProc();
+			}
+			else if ( comm.equals("대출가능 검색")){
+				
+			}
+			else if ( comm.equals("전체가능 검색")){
+				
+			}
+			else if ( comm.equals("내책 검색")){
+				
+			}
+			else if ( comm.equals("책이름 검색")){
+				
+			}
+			
+		}
+	}
 }

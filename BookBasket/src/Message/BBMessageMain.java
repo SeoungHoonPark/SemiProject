@@ -1,5 +1,7 @@
 package Message;
 import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
@@ -20,6 +22,8 @@ import Main.BBMain;
 
 public class BBMessageMain  extends JFrame {
 	BBMain main;
+	BBMessageViewDlg msgView;
+	
 	JPanel fromPanel;		// 받은 쪽지함
 	JPanel toPanel; 			// 보낸 쪽지함
 	JButton reflashBtn; 		// 새로고침 버튼
@@ -30,16 +34,20 @@ public class BBMessageMain  extends JFrame {
 	// BookBasket메인과 상호참조를 위한 생성자
 	public BBMessageMain(BBMain bbMain){
 		main = bbMain;
-		new BBMessageMain();
-	}
+		/*new BBMessageMain();*/
+	/*}*/
 	
 	// 전체적인 틀(layout)을 그려주는 생성자 
-	public BBMessageMain() {
+	/*public BBMessageMain() {*/
+		
+		
+
+		
 		this.setTitle("메세지함");
 		// 메시지 프레임창을 종료하기 위한 함수
 		this.addWindowListener(new WindowAdapter(){
 			public void windowClosing(WindowEvent e){
-				BBMessageMain.this.dispose();
+				/*BBMessageMain.this.*/dispose();
 			}
 		});
 		
@@ -80,16 +88,25 @@ public class BBMessageMain  extends JFrame {
 		this.setSize(600, 570);
 		this.setResizable(false);
 		this.setVisible(true);
+		
+		// 실행창 위치 설정...
+				Dimension frameSize = this.getSize();
+				Dimension winSize = Toolkit.getDefaultToolkit().getScreenSize();
+				int locW = (winSize.width - frameSize.width)/2;
+				int locH = (winSize.height - frameSize.height)/2;
+				setLocation(locW, locH);
+				
+				System.out.println(frameSize.width+ " , " + frameSize.height);
 	}
 
-	public static void main(String[] args) {
-		new BBMessageMain();
-	}
+//	public static void main(String[] args) {
+//		new BBMessageMain();
+//	}
 	
 	class TableEvent extends MouseAdapter{
 		public void mousePressed(MouseEvent e){
 			// row를 선택하면 쪽지 확인 창이 띄워진다.
-			new BBMessageViewDlg();
+			msgView = new BBMessageViewDlg(BBMessageMain.this);
 		}
 	}
 }

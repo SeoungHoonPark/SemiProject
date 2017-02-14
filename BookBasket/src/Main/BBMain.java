@@ -23,14 +23,19 @@ public class BBMain extends JFrame {
 	BBRentalMain bookRentalMain;		// 책 예약 화면 클래스 선언...
 	BBMessageMain msgMain;			// 메세지 함 메인화면 클래스 선언...
 	
-	JTabbedPane bbMainTP;
-	GradationPanel nameP;
-	JButton logoutB, msgBoxB;
-	JLabel msgL1, msgL2;
-	String name ="전은석";
-	int msgNum = 3 ;
-	int bookNum = 1;
+	
+	public JTabbedPane bbMainTP;
+	public GradationPanel nameP;
+	public JButton logoutB, msgBoxB;
+	public JLabel msgL1, msgL2;
+	public String name ="박세빈";
+	public boolean isState_login = false;
+	public int msgNum = 3 ;
+	public int bookNum = 1;
 	public BBMain() {
+		loginDlg = new BBLoginDlg(this);
+		//	자기 자신은 출력하지 말고
+		
 		setTitle(name + " 님의 책바구니");	// 메인 화면 제목표시줄의 제목 지정...
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	// 창닫기 옵션지정...
 		setSize(800, 570);	// 메인 사이즈 지정
@@ -144,8 +149,6 @@ public class BBMain extends JFrame {
 		// 이 클래스는 JFrame을 상속 받았으므로 JFrame의 역활도 한다.
 		// 따라서 여기서 JTabbedPane 을 넣어주기만 하면 된다.
 		add(mainSide, "East");	// 사이드 메뉴들을 넣어준다.
-				
-		setVisible(true);	// 일단 화면 작업에서는 보여야 되기때문에 ... 나중에 이 줄은 삭제할 예정...
 		
 	}
 	

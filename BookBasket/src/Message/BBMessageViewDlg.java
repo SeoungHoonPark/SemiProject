@@ -1,6 +1,8 @@
 package Message;
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.Toolkit;
 
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -22,9 +24,9 @@ public class BBMessageViewDlg  extends JFrame {
 	
 	public BBMessageViewDlg(BBMessageMain m) {
 		main = m;
-	}
+/*	}
 	
-	public BBMessageViewDlg() {
+	public BBMessageViewDlg() {*/
 		// 메시지 확인(dialog 화면) 좌측 화면 구성
 		JLabel filedLabel= new JLabel("보낸사람");
 		JLabel rentSubjectLabel= new JLabel("예약희망 도서");
@@ -59,9 +61,16 @@ public class BBMessageViewDlg  extends JFrame {
 		
 		this.setSize(400, 300);
 		this.setVisible(true);
+		
+
+		Dimension frameSize = getSize();
+		Dimension winSize = Toolkit.getDefaultToolkit().getScreenSize();
+		int locW = (winSize.width - frameSize.width)/2;
+		int locH = (winSize.height - frameSize.height)/2;
+		setLocation(locW, locH);
 	}
 	
-	public static void main(String[] args) {
-		new BBMessageViewDlg();
-	}
+//	public static void main(String[] args) {
+//		new BBMessageViewDlg();
+//	}
 }

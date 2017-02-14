@@ -7,14 +7,14 @@ import java.awt.*;
  *  필요한 항목: 도서명, 저자, 출판사, 구입날짜, 책상태, 수정버튼
  */
 public class BBModifyDlg extends JFrame  {
-//	BBBookSearch main;
+	BBBookSearch main;
 	
-	public BBModifyDlg(/*BBBookSearch m*/) {
-//		main = m;
+	public BBModifyDlg(BBBookSearch m) {
+		main = m;
 		
-		JFrame f = new JFrame();
-		f.setTitle("등록한 책 수정");
-		f.setLayout(null);
+		
+		setTitle("등록한 책 수정");
+		setLayout(null);
 		// 폰트 설정
 		setUIFont(new javax.swing.plaf.FontUIResource("고딕", Font.PLAIN, 12));
 		// 라디오버튼
@@ -76,15 +76,20 @@ public class BBModifyDlg extends JFrame  {
 		// 버튼 묶기
 		JButton ModifyB = new JButton("수정하기"); 
 		ModifyB.setBounds(115,280,100,30);
-		ModifyB.setBackground(new Color(051, 204, 204));
-		ModifyB.setBorderPainted(false);
-		ModifyB.setForeground(Color.WHITE);
+
+		add(p1);
+		add(p3);
+		add(ModifyB);
+		setSize(350,380);
+		setVisible(true);
 		
-		f.add(p1);
-		f.add(p3);
-		f.add(ModifyB);
-		f.setSize(350,380);
-		f.setVisible(true);
+
+		Dimension frameSize = getSize();
+		Dimension winSize = Toolkit.getDefaultToolkit().getScreenSize();
+		int locW = (winSize.width - frameSize.width)/2;
+		int locH = (winSize.height - frameSize.height)/2;
+		setLocation(locW, locH);
+		
 	}
 	// 전체 폰트 설정
 	public static void setUIFont(javax.swing.plaf.FontUIResource f) {

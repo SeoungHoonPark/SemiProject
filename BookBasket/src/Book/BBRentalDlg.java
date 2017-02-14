@@ -8,14 +8,13 @@ import java.util.*;
  *  필요한 항목: 책주인, 신청도서, 저자, 메시지, 보내기버튼
  */
 public class BBRentalDlg extends JFrame {
-//	BBBookSearch main;
+	BBBookSearch main;
 	
-	public BBRentalDlg(/*BBBookSearch m*/) {
-//		main = m;
+	public BBRentalDlg(BBBookSearch m) {
+		main = m;
 		
-		JFrame f = new JFrame();
-		f.setLayout(null);
-		f.setTitle("예약 메시지 보내기");
+		setLayout(null);
+		setTitle("예약 메시지 보내기");
 		// 폰트 설정
 		setUIFont(new javax.swing.plaf.FontUIResource("고딕", Font.PLAIN, 12));
 		// 라벨 생성
@@ -61,16 +60,20 @@ public class BBRentalDlg extends JFrame {
 		// 버튼 생성
 		JButton SendB = new JButton("신청하기"); 
 		SendB.setBounds(115,280,100,30);
-		SendB.setBackground(new Color(051, 204, 204));
-		SendB.setBorderPainted(false);
-		SendB.setForeground(Color.WHITE);
 		
-		f.add(p1);
-		f.add(p2);
-		f.add(p3);
-		f.add(SendB);
-		f.setSize(350,380);
-		f.setVisible(true);
+		add(p1);
+		add(p2);
+		add(p3);
+		add(SendB);
+		setSize(350,380);
+		setVisible(true);
+		
+		// 실행창 위치 설정...
+		Dimension frameSize = getSize();
+		Dimension winSize = Toolkit.getDefaultToolkit().getScreenSize();
+		int locW = (winSize.width - frameSize.width)/2;
+		int locH = (winSize.height - frameSize.height)/2;
+		setLocation(locW, locH);
 	}
 	// 전체 폰트 설정
 	public static void setUIFont(javax.swing.plaf.FontUIResource f) {
