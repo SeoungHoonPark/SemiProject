@@ -1,19 +1,21 @@
 package Rental;
 
 /*
- * 	신청 받은 책 목록 화면  
+ * 	신청 받은 책 목록 화면   
  */
-import javax.swing.*; 
+import javax.swing.*;  
 import javax.swing.table.*;
 import java.awt.*;
 
 public class BBToRental extends JPanel {
 	BBRentalMain main;
 	
+	JTable table;
+	
 	public BBToRental(BBRentalMain m) {
 		main = m;
 		
-		JTable table = new JTable(new DefaultTableModel(new Object[]{"NO", "책이름","책주인","예약현황","요청일"},100));
+		table = new JTable(new DefaultTableModel(new Object[]{"NO", "책이름","책주인","예약현황","요청일"},1));
 		JLabel panelLabel = new JLabel("    신청받은 책");
 		JScrollPane tPane = new JScrollPane(table);
 		
@@ -33,17 +35,34 @@ public class BBToRental extends JPanel {
 		JRadioButton checkedOut 	= new JRadioButton("대출 중");
 		JRadioButton available		= new JRadioButton("대출가능");
 		ButtonGroup btnGroup		= new ButtonGroup();
+		JButton modifyBtn		= new JButton("수정하기");
+		JButton refreshBtn 		= new JButton("새로고침");
 		
 		btnGroup.add(available);
 		btnGroup.add(checkedOut);
 		btnGroup.add(reserved);
 		
+		JPanel radioPanel = new JPanel(new GridLayout(4,1));
+		
+		radioPanel.add(reserved);
+		radioPanel.add(checkedOut);
+		radioPanel.add(available);
+		radioPanel.add(modifyBtn);
+		
+		JPanel btnPanel1 = new JPanel(new BorderLayout());
+		
+		//btnPanel1.add(modifyBtn);
+		
+		JPanel btnPanel2 = new JPanel(new BorderLayout());
+		
+		btnPanel2.add(refreshBtn);
+		
+		JPanel controlPanel = new JPanel(new BorderLayout());
 		//라디오버튼 생성 및 그룹화.
-		
-		JButton modifyBtn		= new JButton("수정하기");
-		JButton refreshBtn 		= new JButton("새로고침");
-		
-		JPanel buttonPanel = new JPanel();
+
+		controlPanel.add(radioPanel,"North");
+		controlPanel.add(btnPanel1,"Center");		
+		controlPanel.add(btnPanel2, "South");
 		
 //		reserved.setText("예약 중");
 //		reserved.setVerticalTextPosition(JRadioButton.BOTTOM);
@@ -51,44 +70,46 @@ public class BBToRental extends JPanel {
 		
 		// 버튼 및 버튼 패널 생성. 위는 라디오버튼 글자 방향설정 코드.
 
-		buttonPanel.setLayout(null);
-		reserved.setBounds(10, 0, 90, 15);
-		checkedOut.setBounds(10, 20, 90, 15);
-		available.setBounds(10, 40, 90, 15); 
+	//	buttonPanel.setLayout(null);
+	//	reserved.setBounds(10, 0, 90, 15);
+	//	checkedOut.setBounds(10, 20, 90, 15);
+	//	available.setBounds(10, 40, 90, 15); 
 		
 		// 버튼패널 레이아웃 null 설정 후 임의로 라디오버튼 위치설정
 		
-		modifyBtn.setBounds(5, 100, 90, 25);
-		refreshBtn.setBounds(5, 420, 90, 25);
+	//	modifyBtn.setBounds(5, 100, 90, 25);
+	//	refreshBtn.setBounds(5, 420, 90, 25);
 		
 		// 위와 동일작업 수행.
 		
-		buttonPanel.add(reserved);
-		buttonPanel.add(checkedOut);
-		buttonPanel.add(available);
-		buttonPanel.add(modifyBtn);
-		buttonPanel.add(refreshBtn);
 		
 		// 버튼패널에 입력
 		
-		this.setLayout(null);
-		panelLabel.setBounds(0, 0, 600, 25);
-		buttonPanel.setBounds(0,50,105,500);
-		tPane.setBounds(100,25,400,480);
+	//	this.setLayout(null);
+	//	panelLabel.setBounds(0, 0, 600, 25);
+	//	buttonPanel.setBounds(0,50,105,500);
+	//	tPane.setBounds(100,25,400,480);
 		
 		// 다른 패널에서 레이아웃이 있는 상태에서 setLayOut null설정불가. 다른 패널들도 모두 임의로 설정.
 		
-		this.add(panelLabel);
-		this.add(tPane);
-		this.add(buttonPanel);
+			
 		
+		JPanel mainPanel = new JPanel(new BorderLayout());
+		mainPanel.setPreferredSize(new Dimension(470, 490));
 		
-		//this.setSize(600,570);
-
+		mainPanel.add(panelLabel,"North");
+		mainPanel.add(tPane,"Center");
+		mainPanel.add(controlPanel,"West");
 		
+		add(mainPanel,"Center");
 		
+//		this.setSize(600,570);
+//		this.setVisible(true);
 		
-
-
 	}
+/*	public static void main(String[] args) {
+		new BBToRental();
+		
+	}*/
+	
 }

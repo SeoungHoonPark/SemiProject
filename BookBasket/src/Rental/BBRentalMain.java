@@ -1,8 +1,12 @@
 package Rental;
+import java.awt.BorderLayout;
+
 /*
  * 	예약정보 확인 화면    
  */
-import javax.swing.*; 
+import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
+
 import Main.BBMain;
 
 public class BBRentalMain extends JPanel  {
@@ -17,10 +21,12 @@ public class BBRentalMain extends JPanel  {
 	public BBRentalMain(BBMain m) {
 		main = m;
 		
-		setLayout(null);
+	//	setLayout(null);
 		//frame = new JFrame();
-		JPanel fromPanel = new JPanel();
-		JPanel toPanel = new JPanel();
+		setLayout(new BorderLayout());
+		
+		JPanel fromPanel = new JPanel(new BorderLayout());
+		JPanel toPanel = new JPanel(new BorderLayout());
 		
 		JTabbedPane tabbedPane = new JTabbedPane(2);
 		int s = tabbedPane.LEFT;   
@@ -35,10 +41,11 @@ public class BBRentalMain extends JPanel  {
 		
 		tabbedPane.add("빌리고 싶은 책", FromRental);
 		tabbedPane.add("빌려준 책", ToRental);
+		
 
 		// tabbedPane("제목", 클래스 변수);
 		
-		tabbedPane.setBounds(0, 0, 600, 570);
+	//	tabbedPane.setBounds(0, 0, 600, 570);
 		add(tabbedPane);
 			
 		setSize(600, 570);
@@ -46,11 +53,9 @@ public class BBRentalMain extends JPanel  {
 		
 	}
 
-/*	
- * public static void main(String[] args) {
+/*  public static void main(String[] args) {
 		new BBRentalMain();
 
-	}
-	*/
+	}*/
 	
 }
