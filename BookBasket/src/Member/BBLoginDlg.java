@@ -17,12 +17,13 @@ public class BBLoginDlg /* extends JDialog */ extends JFrame{
 	boolean isState_lgin = false ;
 	
 	BBMain main;
+	BBLoginDlg loginD;
 	BBJoinDlg joinDlg ;
 	public BBLoginDlg(BBMain m) {
 		main = m ;
 		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setTitle("LogIn");
+		setTitle("책바구니 LogIn");
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 		setLocation(dim.width/2 - 150, dim.height/2 - 80);
 		
@@ -49,15 +50,15 @@ public class BBLoginDlg /* extends JDialog */ extends JFrame{
 		pwF.setHorizontalAlignment(JPasswordField.LEFT);
 		JPanel p2 = new JPanel(new GridLayout(2,1));
 		JPanel pB = new JPanel();
-		JPanel timeP = new JPanel(new GridLayout(2, 1));
+		JPanel timeP = new JPanel(new GridLayout(3, 1));
 		timeP.setPreferredSize(new Dimension(300, 35));
 		Dimension dim2 = new Dimension(60, 200);
 		pB.setPreferredSize(dim2);
 		p2.add(idF);
 		p2.add(pwF);
-		
-		timeP.add(loginL);
+
 		timeP.add(blankL);
+		timeP.add(loginL);
 		
 		JPanel p3 = new JPanel(new BorderLayout());
 		p3.add(p1, "West");
@@ -82,6 +83,8 @@ public class BBLoginDlg /* extends JDialog */ extends JFrame{
 		
 		setSize(300, 160);
 		setVisible(true);
+
+		setResizable(false);
 		
 	}
 	
@@ -95,7 +98,8 @@ public class BBLoginDlg /* extends JDialog */ extends JFrame{
 				return;
 			}
 			else {
-				
+				joinDlg = new BBJoinDlg(BBLoginDlg.this);
+				BBLoginDlg.this.dispose();
 			}
 		}
 	}	

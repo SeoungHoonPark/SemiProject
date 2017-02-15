@@ -34,7 +34,7 @@ public class BBBookSearch extends JPanel {
 		bEditB = new JButton("책 수정");
 		bDeleteB = new JButton("책 삭제");
 		psblSrchB = new JButton("대출가능 검색");
-		ttlSrchB = new JButton("전체가능 검색");
+		ttlSrchB = new JButton("전체 검색");
 		myBookB = new JButton("내책 검색");
 		bNameSrchB = new JButton("책이름 검색");
 		
@@ -69,10 +69,10 @@ public class BBBookSearch extends JPanel {
 		
 		sideP.add(sideBtnP);
 		
-		centerBtnP.add(psblSrchB);
 		centerBtnP.add(ttlSrchB);
-		centerBtnP.add(myBookB);
+		centerBtnP.add(psblSrchB);
 		centerBtnP.add(bNameSrchB);
+		centerBtnP.add(myBookB);
 		
 		BookSrchEvent evt = new BookSrchEvent();
 		rsvtB.addActionListener(evt);

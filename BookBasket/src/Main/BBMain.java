@@ -68,12 +68,12 @@ public class BBMain extends JFrame {
 		// 오른쪽 화면은 중간에 공백이 있고 위, 아래에 다른것들이 들어가므로 보더 레이아웃으로 정책 설정...
 		mainSide.setPreferredSize(new Dimension(200, 570));// 사이즈 설정....
 		JPanel sideRblankP = new JPanel();	// 디자인을 위한 빈 패널..
-		sideRblankP.setPreferredSize(new Dimension(7, 800));
+		sideRblankP.setPreferredSize(new Dimension(7, 600));
 		JPanel sideCenterP = new JPanel();	// 사이드 중앙에 들어갈 패널...
 		
 		// 위쪽에 들어갈 것들 만들자.
 		JPanel loginStatusP = new JPanel(new BorderLayout());
-		loginStatusP.setPreferredSize(new Dimension(190, 300));
+		loginStatusP.setPreferredSize(new Dimension(190, 155));
 		
 		JPanel loginInfoP = new JPanel();	// 로그인 정보 패널...
 		JPanel sideTblankP = new JPanel();	// 디자인을 위한 빈 패널..
@@ -86,7 +86,7 @@ public class BBMain extends JFrame {
 		JPanel alertP = new JPanel();	// 알림 패널...
 		alertP.setPreferredSize(new Dimension(160, 50));
 		JPanel alertListP = new JPanel(new BorderLayout());
-		alertListP.setPreferredSize(new Dimension(160, 180));
+		alertListP.setPreferredSize(new Dimension(160, 60));
 		msgL1 = new JLabel("new 메세지 : " + msgNum + " 개" );		// new 메세지 출력 라벨
 		msgL2 = new JLabel("빌린 책 : " + bookNum + " 권");		// 빌린책 권수 출력 라벨
 		alertP.add(msgL1);
@@ -120,20 +120,20 @@ public class BBMain extends JFrame {
 		loginInfoP.add(nameP);
 		loginInfoP.add(alertListP, "South");
 		
-		JButton logoutB = new JButton("Logout");	// 로그아웃 버튼 만든다.
+//		JButton logoutB = new JButton("Logout");	// 로그아웃 버튼 만든다.
 		JButton msgBoxB = new JButton("메세지함");	// 메세지함 여는 버튼 생성..
-		JPanel logoutBP = new JPanel();	// 버튼이 들어갈 패널 만든다.
+//		JPanel logoutBP = new JPanel();	// 버튼이 들어갈 패널 만든다.
 		JPanel msgBoxBP = new JPanel();
 		msgBoxBP.setPreferredSize(new Dimension(150, 43));
-		logoutBP.add(logoutB);
+//		logoutBP.add(logoutB);
 		msgBoxBP.add(msgBoxB);
 		
 		BtnEvent evt = new BtnEvent();
-		logoutB.addActionListener(evt);
+//		logoutB.addActionListener(evt);
 		msgBoxB.addActionListener(evt);
 		
 		loginStatusP.add(loginInfoP, "Center"); 	// 로그인 정보 패널을 넣어준다.
-		loginStatusP.add(logoutBP, "South"); 	// 버튼을 넣어준다.
+//		loginStatusP.add(logoutBP, "South"); 	// 버튼을 넣어준다.
 		
 		sideCenterP.add(loginStatusP, "North");	// 로그인 정보 전체 패널을 넣어준다.
 		sideCenterP.add(sideRblankP, "East");	// 디자인을 위해 공백 패널을 오른쪽에 넣어준다.

@@ -39,8 +39,8 @@ public class BBRentalMain extends JPanel  {
 		
 		// 상호참조 클래스 초기화.
 		
-		tabbedPane.add("빌리고 싶은 책", FromRental);
-		tabbedPane.add("빌려준 책", ToRental);
+		tabbedPane.add("대여신청 도서", FromRental);
+		tabbedPane.add("신청받은 도서", ToRental);
 		
 
 		// tabbedPane("제목", 클래스 변수);

@@ -12,7 +12,6 @@ public class BBModifyDlg extends JFrame  {
 	public BBModifyDlg(BBBookSearch m) {
 		main = m;
 		
-		
 		setTitle("등록한 책 수정");
 		setLayout(null);
 		// 폰트 설정

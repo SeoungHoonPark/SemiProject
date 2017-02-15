@@ -43,7 +43,7 @@ public class BBMessageMain  extends JFrame {
 		
 
 		
-		this.setTitle("메세지함");
+		this.setTitle(main.name + " 님의 메세지함");
 		// 메시지 프레임창을 종료하기 위한 함수
 		this.addWindowListener(new WindowAdapter(){
 			public void windowClosing(WindowEvent e){
@@ -65,19 +65,32 @@ public class BBMessageMain  extends JFrame {
 		//p1.add(MessageBtn);	
 		
 		//받은 쪽지함 테이블
-		String[] fromTitle = {"번호", "제목", "보낸 사람", "날짜"};
-		fromModel = new DefaultTableModel(fromTitle, 1);
+		String[] fromTitle = {"번호", "보낸 사람", "내용", "날짜"};
+		fromModel = new DefaultTableModel(fromTitle, 0);
 		fromTable = new JTable( fromModel);
 		fromTable.addMouseListener(new TableEvent());
 		JScrollPane fromSp = new JScrollPane(fromTable);
+		
+		fromTable.getColumnModel().getColumn(0).setPreferredWidth(20);
+		fromTable.getColumnModel().getColumn(1).setPreferredWidth(70);
+		fromTable.getColumnModel().getColumn(2).setPreferredWidth(200);
+		fromTable.getColumnModel().getColumn(3).setPreferredWidth(80);
+		
 		fromPanel.add(fromSp);
 		
 		//보낸 쪽지함 테이블
-		String[] toTitle = {"번호", "제목", "받은 사람", "날짜"};
-		toModel = new DefaultTableModel(toTitle, 1);
+		String[] toTitle = {"번호", "받은 사람", "내용", "날짜"};
+		
+		toModel = new DefaultTableModel(toTitle, 0);
 		toTable = new JTable(toModel);
 		toTable.addMouseListener(new TableEvent());
 		JScrollPane toSp = new JScrollPane(toTable);
+
+		toTable.getColumnModel().getColumn(0).setPreferredWidth(20);
+		toTable.getColumnModel().getColumn(1).setPreferredWidth(70);
+		toTable.getColumnModel().getColumn(2).setPreferredWidth(200);
+		toTable.getColumnModel().getColumn(3).setPreferredWidth(80);
+		
 		toPanel.add(toSp);
 		
 		tPane.add("받은 쪽지함", fromPanel);					// 탭중 1 .. 받은 쪽지함 리스트를 볼 수 있음

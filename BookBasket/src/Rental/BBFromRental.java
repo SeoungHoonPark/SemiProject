@@ -1,11 +1,15 @@
 package Rental;
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 
 /*
  * 신청한 책 목록을 화면   
  */
-import javax.swing.*;  
-import javax.swing.table.*;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 public class BBFromRental extends JPanel{
 	BBRentalMain main;
@@ -18,7 +22,7 @@ public class BBFromRental extends JPanel{
 		JLabel panelLabel = new JLabel("대여신청 도서목록",JLabel.LEFT);
 		
 		JTable table = new JTable(new DefaultTableModel(new Object[]
-				{"NO", "책이름","글쓴이","책주인","책상태","예약현황","요청일"},1));
+				{"NO", "책이름","글쓴이","책주인","책상태","예약현황","요청일"},100));
 //		table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 //		table.getColumnModel().getColumn(0).setPreferredWidth(35);
 //		table.getColumnModel().getColumn(1).setPreferredWidth(150);
@@ -38,16 +42,19 @@ public class BBFromRental extends JPanel{
 		JPanel topPanel = new JPanel(new BorderLayout());
 		
 		JPanel mainPanel = new JPanel(new BorderLayout());
+		mainPanel.setPreferredSize(new Dimension(470, 490));
 		
 		topPanel.add(panelLabel);
 		centerPanel.add(tPane);
 
+		mainPanel.add(topPanel, "North");
+		mainPanel.add(centerPanel, "Center");
 		//mainPanel.add(topPanel,"North");
 		//mainPanel.add(centerPanel, "Center");
 		
 		
-		add(topPanel, "North");
-		add(centerPanel, "Center");
+		
+		add(mainPanel, "Center");
 	
 
 	//	this.setSize(600, 570);

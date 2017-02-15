@@ -15,7 +15,7 @@ public class BBToRental extends JPanel {
 	public BBToRental(BBRentalMain m) {
 		main = m;
 		
-		table = new JTable(new DefaultTableModel(new Object[]{"NO", "책이름","책주인","예약현황","요청일"},1));
+		table = new JTable(new DefaultTableModel(new Object[]{"NO", "책이름","신청자","예약현황","요청일"},100));
 		JLabel panelLabel = new JLabel("    신청받은 책");
 		JScrollPane tPane = new JScrollPane(table);
 		
@@ -31,22 +31,28 @@ public class BBToRental extends JPanel {
 		
 		// 테이블 내용 자동너비조절 OFF, 컬럼마다 임의로 너비지정.
 		
-		JRadioButton reserved 		= new JRadioButton("예약완료");
-		JRadioButton checkedOut 	= new JRadioButton("대출 중");
-		JRadioButton available		= new JRadioButton("대출가능");
+		
+		JRadioButton beingReturned 		= new JRadioButton("반납 중");
+		JRadioButton available			= new JRadioButton("대출가능");
+
+		JRadioButton standBy			= new JRadioButton("대기");
+		JRadioButton reserveStandBy		= new JRadioButton("예약중");
+		
 		ButtonGroup btnGroup		= new ButtonGroup();
 		JButton modifyBtn		= new JButton("수정하기");
 		JButton refreshBtn 		= new JButton("새로고침");
 		
+		btnGroup.add(beingReturned);
 		btnGroup.add(available);
-		btnGroup.add(checkedOut);
-		btnGroup.add(reserved);
+		btnGroup.add(standBy);
+		btnGroup.add(reserveStandBy);
 		
-		JPanel radioPanel = new JPanel(new GridLayout(4,1));
+		JPanel radioPanel = new JPanel(new GridLayout(5,1));
 		
-		radioPanel.add(reserved);
-		radioPanel.add(checkedOut);
 		radioPanel.add(available);
+		radioPanel.add(standBy);
+		radioPanel.add(reserveStandBy);
+		radioPanel.add(beingReturned);
 		radioPanel.add(modifyBtn);
 		
 		JPanel btnPanel1 = new JPanel(new BorderLayout());
