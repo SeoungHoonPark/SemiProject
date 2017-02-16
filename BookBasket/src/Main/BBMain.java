@@ -5,6 +5,7 @@ import	javax.swing.*;
 import	javax.swing.border.*;
 import java.awt.*;
 import java.awt.event.*;
+import de.javasoft.plaf.synthetica.*;
 
 import	Member.*;
 import	Book.*;
@@ -33,6 +34,7 @@ public class BBMain extends JFrame {
 	public int msgNum = 3 ;
 	public int bookNum = 1;
 	public BBMain() {
+		
 		loginDlg = new BBLoginDlg(this);
 		//	자기 자신은 출력하지 말고
 		
@@ -40,6 +42,8 @@ public class BBMain extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	// 창닫기 옵션지정...
 		setSize(800, 570);	// 메인 사이즈 지정
 		setResizable(false);
+		
+		
 		
 		// 실행창 위치 설정...
 		Dimension frameSize = getSize();
@@ -160,6 +164,19 @@ public class BBMain extends JFrame {
 	
 	
 	public static void main(String[] args) {
+		// LookAndFeel 적용
+		try {
+			// 맥 스타일
+//			UIManager.setLookAndFeel("com.jtattoo.plaf.mcwin.McWinLookAndFeel");
+			
+			// 블랙 스타일 
+			//UIManager.setLookAndFeel(new SyntheticaBlackEyeLookAndFeel());
+			//SyntheticaLookAndFeel.setFont("Table", 11);
+		} 
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 		new BBMain();
 	}
 	

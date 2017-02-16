@@ -22,12 +22,13 @@ public class BBToRental extends JPanel {
 		// 테이블 생성, 모델 생성, 객체배열({목록},행숫자) 생성,  제목인 라벨 생성.
 		// 생성 된 테이블 JScrollPane 으로 입력. 
 		
-//		table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-//		table.getColumnModel().getColumn(0).setPreferredWidth(35);
-//		table.getColumnModel().getColumn(1).setPreferredWidth(165);
-//		table.getColumnModel().getColumn(2).setPreferredWidth(55);
-//		table.getColumnModel().getColumn(3).setPreferredWidth(55);
-//		table.getColumnModel().getColumn(4).setPreferredWidth(75);
+		table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		table.getColumnModel().getColumn(0).setPreferredWidth(35);
+		table.getColumnModel().getColumn(1).setPreferredWidth(140);
+		table.getColumnModel().getColumn(2).setPreferredWidth(60);
+		table.getColumnModel().getColumn(3).setPreferredWidth(75);
+		table.getColumnModel().getColumn(4).setPreferredWidth(75);
+
 		
 		// 테이블 내용 자동너비조절 OFF, 컬럼마다 임의로 너비지정.
 		

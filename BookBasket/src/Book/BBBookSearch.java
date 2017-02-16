@@ -48,8 +48,8 @@ public class BBBookSearch extends JPanel {
 //		bSrchTable.getTableHeader().setAlignmentY(SwingConstants.CENTER);
 		// 컬럼 사이즈 조정...
 		bSrchTable.getColumn("no").setPreferredWidth(3);
-		bSrchTable.getColumn("저 자").setPreferredWidth(20);
-		bSrchTable.getColumn("소유자").setPreferredWidth(20);
+		bSrchTable.getColumn("저 자").setPreferredWidth(35);
+		bSrchTable.getColumn("소유자").setPreferredWidth(35);
 //		bSrchTable.getColumn("책상태").setPreferredWidth(30);
 //		bSrchTable.getColumn("예약 현황").setPreferredWidth(15);
 //		bSrchTable.getColumn("등 록 일").setPreferredWidth(50);
