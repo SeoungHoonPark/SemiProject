@@ -171,7 +171,7 @@ public class BBMain extends JFrame {
 			
 			// 블랙 스타일 
 			//UIManager.setLookAndFeel(new SyntheticaBlackEyeLookAndFeel());
-			//SyntheticaLookAndFeel.setFont("Table", 11);
+//			/SyntheticaLookAndFeel.setFont("Table", 11);
 		} 
 		catch (Exception e) {
 			e.printStackTrace();

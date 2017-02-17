@@ -48,8 +48,8 @@ public class BBBookSearch extends JPanel {
 //		bSrchTable.getTableHeader().setAlignmentY(SwingConstants.CENTER);
 		// 컬럼 사이즈 조정...
 		bSrchTable.getColumn("no").setPreferredWidth(3);
-		bSrchTable.getColumn("저 자").setPreferredWidth(35);
-		bSrchTable.getColumn("소유자").setPreferredWidth(35);
+		bSrchTable.getColumn("저 자").setPreferredWidth(20);
+		bSrchTable.getColumn("소유자").setPreferredWidth(20);
 //		bSrchTable.getColumn("책상태").setPreferredWidth(30);
 //		bSrchTable.getColumn("예약 현황").setPreferredWidth(15);
 //		bSrchTable.getColumn("등 록 일").setPreferredWidth(50);
@@ -123,7 +123,14 @@ public class BBBookSearch extends JPanel {
 				
 			}
 			else if ( comm.equals("책이름 검색")){
-				
+				Icon img = null; // 이미지 아이콘 만들기...
+				try {
+		            img = new ImageIcon("./src/Data/icon_livro.png");
+		        } catch(Exception me) {
+		            me.printStackTrace();
+		        }
+				String str1 = JOptionPane.showInputDialog(main, "책 이름을 입력하세요!", "책 이름 검색", JOptionPane.QUESTION_MESSAGE);
+				System.out.println(str1);
 			}
 			
 		}
