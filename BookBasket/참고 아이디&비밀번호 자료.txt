@@ -1,47 +1,47 @@
 
 
 
-INSERT INTO Member VALUES('°­º´±¹', 'kdk135', '1234');
-INSERT INTO Member VALUES('±Ç¼öÁ¤', 'jeong9630', '1234');
-INSERT INTO Member VALUES('±è¹Î¾Æ', 'mina99', '1234');
-INSERT INTO Member VALUES('±è¿¹¼Û', 'carrot', '1234');
+INSERT INTO Member VALUES('ê°•ë³‘êµ­', 'kdk135', '1234');
+INSERT INTO Member VALUES('ê¶Œìˆ˜ì •', 'jeong9630', '1234');
+INSERT INTO Member VALUES('ê¹€ë¯¼ì•„', 'mina99', '1234');
+INSERT INTO Member VALUES('ê¹€ì˜ˆì†¡', 'carrot', '1234');
 
--------------------------------------------------------------------------------------------- ¹Ú½ÂÈÆ
-
-
-
-INSERT INTO Member VALUES('±è¿ë¹Î', 'kym', '1234');
-INSERT INTO Member VALUES('·ù¼öÁø', 'lsj', '1234');
-INSERT INTO Member VALUES('¹Ú¼¼ºó', 'psb', '1234');
-INSERT INTO Member VALUES('¹Ú½ÂÈÆ', 'psh83', '1234');
-
--------------------------------------------------------------------------------------------- À±ÁØÇÏ
+-------------------------------------------------------------------------------------------- ë°•ìŠ¹í›ˆ
 
 
 
-INSERT INTO Member VALUES('¹ÚÁø°ü', 'conanima', '1234');
-INSERT INTO Member VALUES('¿À¼Û·Ï', 'osl', '1234');
-INSERT INTO Member VALUES('À±º´Áø', 'jin6893', '1234');
-INSERT INTO Member VALUES('À±ÁØÇÏ', 'borgrabbit', '1234');
+INSERT INTO Member VALUES('ê¹€ìš©ë¯¼', 'kym', '1234');
+INSERT INTO Member VALUES('ë¥˜ìˆ˜ì§„', 'lsj', '1234');
+INSERT INTO Member VALUES('ë°•ì„¸ë¹ˆ', 'psb', '1234');
+INSERT INTO Member VALUES('ë°•ìŠ¹í›ˆ', 'psh83', '1234');
 
--------------------------------------------------------------------------------------------- ±è¿¹¼Û
-
-
-
-INSERT INTO Member VALUES('ÀÌ¿ë°¢', 'lyk', '1234');
-INSERT INTO Member VALUES('ÀÌÅÂ±Ô', 'LTK', '1234');
-INSERT INTO Member VALUES('ÀÌÈñÈÆ', 'thread', '1234');
-INSERT INTO Member VALUES('Àå¼º¸ğ', 'sss', '1234');
-
---------------------------------------------------------------------------------------------  ÀüÀº¼®
+-------------------------------------------------------------------------------------------- ìœ¤ì¤€í•˜
 
 
 
-INSERT INTO Member VALUES('ÀüÀº¼®', 'euns', '1234');
-INSERT INTO Member VALUES('Á¤¸ğ¼¼', 'sigans', '1234');
-INSERT INTO Member VALUES('±è¸íÈ¯', 'isundol', '1234');
+INSERT INTO Member VALUES('ë°•ì§„ê´€', 'conanima', '1234');
+INSERT INTO Member VALUES('ì˜¤ì†¡ë¡', 'osl', '1234');
+INSERT INTO Member VALUES('ìœ¤ë³‘ì§„', 'jin6893', '1234');
+INSERT INTO Member VALUES('ìœ¤ì¤€í•˜', 'borgrabbit', '1234');
 
--------------------------------------------------------------------------------------------- ¹Ú¼¼ºó
+-------------------------------------------------------------------------------------------- ê¹€ì˜ˆì†¡
+
+
+
+INSERT INTO Member VALUES('ì´ìš©ê°', 'lyk', '1234');
+INSERT INTO Member VALUES('ì´íƒœê·œ', 'LTK', '1234');
+INSERT INTO Member VALUES('ì´í¬í›ˆ', 'thread', '1234');
+INSERT INTO Member VALUES('ì¥ì„±ëª¨', 'sss', '1234');
+
+--------------------------------------------------------------------------------------------  ì „ì€ì„
+
+
+
+INSERT INTO Member VALUES('ì „ì€ì„', 'euns', '1234');
+INSERT INTO Member VALUES('ì •ëª¨ì„¸', 'sigans', '1234');
+INSERT INTO Member VALUES('ê¹€ëª…í™˜', 'isundol', '1234');
+
+-------------------------------------------------------------------------------------------- ë°•ì„¸ë¹ˆ
 
 
 

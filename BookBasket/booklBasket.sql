@@ -15,28 +15,13 @@ DROP TABLE B_Member CASCADE CONSTRAINTS;
 DROP TABLE b_mstatus CASCADE CONSTRAINTS;
 DROP TABLE brs_code CASCADE CONSTRAINTS;
 
-
-
-/* Drop Sequences */
-
-DROP SEQUENCE SEQ_B_Member_bm_no;
-
-
-
-
-/* Create Sequences */
-
-CREATE SEQUENCE SEQ_B_Member_bm_no INCREMENT BY 1 START WITH 1;
-
-
-
 /* Create Tables */
 
 CREATE TABLE B_Member
 (
 	-- 회원 관리를 위한 일련번호
-	bm_no number(5) NOT NULL UNIQUE,
-	bm_id varchar2(50) UNIQUE,
+	bm_no number(5) NOT NULL,
+	bm_id varchar2(50),
 	bm_pw varchar2(50),
 	bm_name varchar2(50),
 	bm_email varchar2(100),
@@ -48,8 +33,8 @@ CREATE TABLE B_Member
 
 CREATE TABLE b_mstatus
 (
-	bms_code number(2) NOT NULL UNIQUE,
-	bms_name varchar2(20) NOT NULL UNIQUE,
+	bms_code number(2) NOT NULL,
+	bms_name varchar2(20) NOT NULL,
 	PRIMARY KEY (bms_code)
 );
 
@@ -66,7 +51,7 @@ CREATE TABLE bms_info
 
 CREATE TABLE b_book
 (
-	bb_no number(10) NOT NULL UNIQUE,
+	bb_no number(10) NOT NULL,
 	bb_name varchar2(200),
 	bb_writer varchar2(200),
 	bb_ownerid varchar2(50),
@@ -81,7 +66,7 @@ CREATE TABLE b_book
 
 CREATE TABLE B_Rsrv
 (
-	br_no number(10) NOT NULL UNIQUE,
+	br_no number(10) NOT NULL,
 	br_bno number(10),
 	-- 회원 관리를 위한 일련번호
 	br_rid varchar2(50) NOT NULL,
@@ -93,7 +78,7 @@ CREATE TABLE B_Rsrv
 
 CREATE TABLE brs_code
 (
-	brs_code number(2) NOT NULL UNIQUE,
+	brs_code number(2) NOT NULL,
 	brs_name varchar2(20),
 	PRIMARY KEY (brs_code)
 );
@@ -101,7 +86,7 @@ CREATE TABLE brs_code
 
 CREATE TABLE b_msg
 (
-	ms_no number(10) NOT NULL UNIQUE,
+	ms_no number(10) NOT NULL,
 	ms_sendid varchar2(50),
 	ms_receiveid varchar2(50),
 	ms_date date,
@@ -156,26 +141,7 @@ ALTER TABLE B_Rsrv
 ;
 
 
-
-/* Create Triggers */
-
-CREATE OR REPLACE TRIGGER TRI_B_Member_bm_no BEFORE INSERT ON B_Member
-FOR EACH ROW
-BEGIN
-	SELECT SEQ_B_Member_bm_no.nextval
-	INTO :new.bm_no
-	FROM dual;
-END;
-
-/
-
-
-
-
 /* Comments */
 
 COMMENT ON COLUMN B_Member.bm_no IS '회원 관리를 위한 일련번호';
 COMMENT ON COLUMN B_Rsrv.br_rid IS '회원 관리를 위한 일련번호';
-
-
-
