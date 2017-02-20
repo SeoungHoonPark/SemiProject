@@ -11,8 +11,7 @@ import Receive.BBReceiveThread;
 public class LoginServer {
 		ServerSocket server;
 		ArrayList clientList;
-		
-		PreparedStatement loginS;
+		//PreparedStatement loginS;
 		BBMainServer db;
 		ResultSet rs;
 		
@@ -26,10 +25,11 @@ public class LoginServer {
 			}
 			db = new BBMainServer();
 			
-			String login = "select * from b_member where bm_id=? and m_pw=?";
-			loginS = db.getPSTMT(login);
+			//String login = "select * from b_member where bm_id=? and m_pw=?";
+			//loginS = db.getPSTMT(login);
 			
-			System.out.println("접속 대기");
+			//System.out.println("접속 대기");
+			
 			while(true){
 				try{					
 					Socket socket = server.accept();

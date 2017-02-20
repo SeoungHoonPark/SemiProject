@@ -114,18 +114,6 @@ public class BBMain extends JFrame {
 		nameP.setLayout(new GridLayout(2, 1)); // 글이 두줄이므로 그리드레이아웃으로 정책설정...
 		nameP.setBorder(new SoftBevelBorder(BevelBorder.LOWERED));
 		nameP.setPreferredSize(new Dimension(160, 45));		// 패널 사이즈 지정...
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-
 		// 패널에 넣어주자.
 		nameP.add(nameL);
 		nameP.add(wlcomeTxt);

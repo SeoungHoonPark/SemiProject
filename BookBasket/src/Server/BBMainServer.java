@@ -18,7 +18,7 @@ public class BBMainServer {
 	public Statement stmt = null;
 	public PreparedStatement pstmt = null;
 	public ResultSet rs = null;
-
+	
 	public BBMainServer() {
 		try{
 			Class.forName("oracle.jdbc.driver.OracleDriver");

@@ -38,9 +38,7 @@ public class BBMessageMain  extends JFrame {
 	/*}*/
 	
 	// 전체적인 틀(layout)을 그려주는 생성자 
-	/*public BBMessageMain() {*/
-		
-		
+	/*public BBMessageMain() {*/		
 
 		
 		this.setTitle(main.name + " 님의 메세지함");
