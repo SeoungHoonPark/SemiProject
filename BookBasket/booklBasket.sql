@@ -1,10 +1,4 @@
 
-/* Drop Triggers */
-
-DROP TRIGGER TRI_B_Member_bm_no;
-
-
-
 /* Drop Tables */
 
 DROP TABLE b_book CASCADE CONSTRAINTS;
@@ -19,7 +13,6 @@ DROP TABLE brs_code CASCADE CONSTRAINTS;
 
 CREATE TABLE B_Member
 (
-	-- 회원 관리를 위한 일련번호
 	bm_no number(5) NOT NULL,
 	bm_id varchar2(50),
 	bm_pw varchar2(50),
@@ -68,7 +61,7 @@ CREATE TABLE B_Rsrv
 (
 	br_no number(10) NOT NULL,
 	br_bno number(10),
-	-- 회원 관리를 위한 일련번호
+	-- ?�원 관리�? ?�한 ?�련번호
 	br_rid varchar2(50) NOT NULL,
 	br_date date,
 	br_status number(2),
@@ -143,5 +136,5 @@ ALTER TABLE B_Rsrv
 
 /* Comments */
 
-COMMENT ON COLUMN B_Member.bm_no IS '회원 관리를 위한 일련번호';
-COMMENT ON COLUMN B_Rsrv.br_rid IS '회원 관리를 위한 일련번호';
+COMMENT ON COLUMN B_Member.bm_no IS '?�원 관리�? ?�한 ?�련번호';
+COMMENT ON COLUMN B_Rsrv.br_rid IS '?�원 관리�? ?�한 ?�련번호';
