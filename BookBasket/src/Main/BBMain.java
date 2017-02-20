@@ -170,8 +170,8 @@ public class BBMain extends JFrame {
 //			UIManager.setLookAndFeel("com.jtattoo.plaf.mcwin.McWinLookAndFeel");
 			
 			// 블랙 스타일 
-			//UIManager.setLookAndFeel(new SyntheticaBlackEyeLookAndFeel());
-//			/SyntheticaLookAndFeel.setFont("Table", 11);
+			UIManager.setLookAndFeel(new SyntheticaBlackEyeLookAndFeel());
+			SyntheticaLookAndFeel.setFont("Table", 11);
 		} 
 		catch (Exception e) {
 			e.printStackTrace();
