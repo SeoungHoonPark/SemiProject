@@ -116,6 +116,15 @@ public class BBMain extends JFrame {
 		nameP.setPreferredSize(new Dimension(160, 45));		// 패널 사이즈 지정...
 		
 		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 
 		// 패널에 넣어주자.
 		nameP.add(nameL);
