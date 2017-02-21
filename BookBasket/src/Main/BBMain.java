@@ -1,18 +1,37 @@
 package Main;
 
 
-import	javax.swing.*;
-import	javax.swing.border.*;
-import java.awt.*;
-import java.awt.event.*;
-import de.javasoft.plaf.synthetica.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.GridLayout;
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.Socket;
 
-import	Member.*;
-import	Book.*;
-import	Data.*;
-import	Message.*;
-import	Receive.*;
-import	Rental.*;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
+import javax.swing.SwingConstants;
+import javax.swing.UIManager;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.SoftBevelBorder;
+import javax.swing.border.TitledBorder;
+
+import Book.BBBookRegDlg;
+import Book.BBBookSearch;
+import Data.BBMainData;
+import Member.BBLoginDlg;
+import Message.BBMessageMain;
+import Receive.BBReceiveThread;
+import Rental.BBRentalMain;
+import de.javasoft.plaf.synthetica.SyntheticaBlackEyeLookAndFeel;
+import de.javasoft.plaf.synthetica.SyntheticaLookAndFeel;
 /*
  * 	네트워크 처리
  * 	3개의 화면을 Tabb 이 생기는 JTabbedPane으로 관리할 화면  
@@ -30,9 +49,16 @@ public class BBMain extends JFrame {
 	public JButton logoutB, msgBoxB;
 	public JLabel msgL1, msgL2;
 	public String name ="박세빈";
-	public boolean isState_login = false;
 	public int msgNum = 3 ;
 	public int bookNum = 1;
+	
+	public Socket socket;
+	public ObjectInputStream oin;
+	public ObjectOutputStream oout;
+	public BBReceiveThread thread;
+
+	public BBMainData data;
+	
 	public BBMain() {
 		
 		loginDlg = new BBLoginDlg(this);
@@ -42,8 +68,6 @@ public class BBMain extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	// 창닫기 옵션지정...
 		setSize(800, 570);	// 메인 사이즈 지정
 		setResizable(false);
-		
-		
 		
 		// 실행창 위치 설정...
 		Dimension frameSize = getSize();
@@ -151,6 +175,21 @@ public class BBMain extends JFrame {
 		// 따라서 여기서 JTabbedPane 을 넣어주기만 하면 된다.
 		add(mainSide, "East");	// 사이드 메뉴들을 넣어준다.
 		
+		// ==================== 소켓 생성 ====================
+		try{	//192.168.25.3
+			socket = new Socket("192.168.0.106", 9991);
+			oout = new ObjectOutputStream(socket.getOutputStream());
+			oin = new ObjectInputStream(socket.getInputStream());
+			thread = new BBReceiveThread(this);
+			thread.start();
+			BBMainData data = new BBMainData();
+
+			oout.writeObject(data);
+		}catch (Exception e) {
+			System.out.println("에러 = " + e);
+			System.exit(0);
+		}
+		
 	}
 	
 	public void showMain() {
@@ -180,8 +219,7 @@ public class BBMain extends JFrame {
 	class BtnEvent implements ActionListener {
 		public void actionPerformed(ActionEvent e){
 			String str = (String) e.getActionCommand();
-
-			System.out.println(str);
+			
 			if ( str.equals("메세지함")){
 				msgMain = new BBMessageMain(BBMain.this);
 			}

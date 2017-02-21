@@ -3,6 +3,10 @@ package Member;
  * 로그인 화면을 처리할 클래스
  */
 import	javax.swing.*;
+
+import Data.BBMainData;
+import Data.BBMemberData;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
@@ -85,19 +89,30 @@ public class BBLoginDlg /* extends JDialog */ extends JFrame{
 		setVisible(true);
 
 		setResizable(false);
-		
 	}
 	
 	class ButtonEventLogin implements ActionListener {
 		public void actionPerformed(ActionEvent e){
 			JButton btn = (JButton) e.getSource();
 			if (btn.equals(loginB)){
+				String id = idF.getText();
+				String pw = new String (pwF.getPassword());
+		
+				BBMainData data = new BBMainData();
+				BBMemberData mData = new BBMemberData();
+				mData.id = id;
+				mData.pw = pw;
+				data.memberData = mData;
+				//data.protocol = 1101; ----- 
+				// 이곳에 프로토콜을 넣어주면 클라이언트가 자동 종료됨 (??)
+				System.out.println("로그인버튼 클릭(서버로 넘어갈 데이터) : " + data.memberData.toString());
 				
-				main.isState_login = true;
-				main.showMain();
-				return;
-			}
-			else {
+				try{
+					main.oout.writeObject(data);
+				}catch (Exception ee) {
+					ee.printStackTrace();
+				}
+			}else {
 				joinDlg = new BBJoinDlg(BBLoginDlg.this);
 				BBLoginDlg.this.dispose();
 			}

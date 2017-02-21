@@ -61,7 +61,6 @@ CREATE TABLE B_Rsrv
 (
 	br_no number(10) NOT NULL,
 	br_bno number(10),
-	-- ?�원 관리�? ?�한 ?�련번호
 	br_rid varchar2(50) NOT NULL,
 	br_date date,
 	br_status number(2),
