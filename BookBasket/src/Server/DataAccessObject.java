@@ -123,6 +123,7 @@ public class DataAccessObject {
 				temp.name = rs.getString("BM_NAME");
 				temp.phone = rs.getString("BM_PHONE");
 				returnData.isSuccess = true;
+				returnData.protocol = 2101;
 				returnData.memberData = temp;
 			}else{
 				returnData.isSuccess = false;

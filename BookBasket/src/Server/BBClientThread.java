@@ -56,12 +56,13 @@ public class BBClientThread extends Thread {
 			while(true){
 				BBMainData returnData = (BBMainData)oin.readObject();
 System.out.println("넘어온 프로토콜 난바와? : " + returnData.protocol);
-				returnData.protocol = 1101;
+
 				switch(returnData.protocol){
 				case 1001:			// 회원 가입
 //					joinProcess(returnData);
 					break;
 				case 1101:			//	로그인
+					System.out.println("로그인 스레드로 넘어올까? " + returnData.protocol);
 					loginProcess(returnData);
 					break;
 				case 1201:			// 책 검색 관련

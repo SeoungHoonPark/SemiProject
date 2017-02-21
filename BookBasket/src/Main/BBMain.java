@@ -177,19 +177,19 @@ public class BBMain extends JFrame {
 		
 		// ==================== 소켓 생성 ====================
 		try{	//192.168.25.3
-			socket = new Socket("192.168.0.106", 9991);
+			socket = new Socket("192.168.35.72", 9991);
 			oout = new ObjectOutputStream(socket.getOutputStream());
 			oin = new ObjectInputStream(socket.getInputStream());
 			thread = new BBReceiveThread(this);
 			thread.start();
-			BBMainData data = new BBMainData();
-
-			oout.writeObject(data);
+//			BBMainData data = new BBMainData();
+//
+//			oout.writeObject(data);
 		}catch (Exception e) {
 			System.out.println("에러 = " + e);
 			System.exit(0);
 		}
-		
+		loginDlg.setVisible(true);
 	}
 	
 	public void showMain() {

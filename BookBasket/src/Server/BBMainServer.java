@@ -31,6 +31,7 @@ public class BBMainServer extends Thread {
 		try{
 			server = new ServerSocket(9991);
 			clientList = new ArrayList();	
+			dao = new DataAccessObject();
 		}catch (Exception e) {
 			System.exit(0);
 		}

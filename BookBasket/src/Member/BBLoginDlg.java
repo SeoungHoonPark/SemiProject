@@ -86,8 +86,6 @@ public class BBLoginDlg /* extends JDialog */ extends JFrame{
 		add(p4, "South");
 		
 		setSize(300, 160);
-		setVisible(true);
-
 		setResizable(false);
 	}
 	
@@ -103,11 +101,11 @@ public class BBLoginDlg /* extends JDialog */ extends JFrame{
 				mData.id = id;
 				mData.pw = pw;
 				data.memberData = mData;
-				//data.protocol = 1101; ----- 
+				data.protocol = 1101; 
 				// 이곳에 프로토콜을 넣어주면 클라이언트가 자동 종료됨 (??)
 				System.out.println("로그인버튼 클릭(서버로 넘어갈 데이터) : " + data.memberData.toString());
-				
 				try{
+					
 					main.oout.writeObject(data);
 				}catch (Exception ee) {
 					ee.printStackTrace();
