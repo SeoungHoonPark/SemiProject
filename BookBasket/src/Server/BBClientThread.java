@@ -3,6 +3,7 @@ package Server;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.HashMap;
 
 import Data.BBMainData;
 
@@ -34,8 +35,13 @@ public class BBClientThread extends Thread {
 	}
 	// 받은 쪽지리스트 검색
 	void messageFromProcess(BBMainData data){
-		System.out.println("받은쪽지리스트 관련 서버로 넘어온 데이터 : " + data.msgData.toString());
-		BBMainData sData = main.dao.getMsgFromSelect(data.msgData);
+		
+		System.out.println("받은쪽지리스트 관련 서버로 넘어온 데이터 : " + data.memberData.toString());
+		HashMap map = new HashMap();
+		map.put("id", data.memberData.id);
+		BBMainData sData = main.dao.getMsgFromSelect(map);
+		
+		System.out.println("sData ========== " + sData.toString());
 		
 		sData.protocol = 2401;
 		this.sendData(sData);
@@ -62,7 +68,6 @@ System.out.println("넘어온 프로토콜 난바와? : " + returnData.protocol)
 //					joinProcess(returnData);
 					break;
 				case 1101:			//	로그인
-					System.out.println("로그인 스레드로 넘어올까? " + returnData.protocol);
 					loginProcess(returnData);
 					break;
 				case 1201:			// 책 검색 관련
@@ -72,6 +77,7 @@ System.out.println("넘어온 프로토콜 난바와? : " + returnData.protocol)
 //					rentalProcess(returnData);
 					break;
 				case 1401: 		// 쪽지 관련(받은 쪽지)
+					System.out.println("받은 쪽지 관련 정보 : " + returnData.memberData.toString());
 					messageFromProcess(returnData);
 					break;
 				case 1402: 		// 쪽지 관련(전달 쪽지)

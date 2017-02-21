@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import Data.BBMainData;
 import Data.BBMemberData;
@@ -33,25 +34,26 @@ public class DataAccessObject {
 	/*
 	 * 받은 쪽지 리스트 검색
 	 */
-	public BBMainData getMsgFromSelect(BBMsgData data){
+	public BBMainData getMsgFromSelect(HashMap id){
 		ResultSet rs = null;
 		BBMainData returnData = new BBMsgData();
 		
 		try{
-			selectFromListMsgS.setString(1, data.sendId);
+			System.out.println("아이디값 : " + id);
+			
+			selectFromListMsgS.setObject(1, id);
+			
 			rs = selectFromListMsgS.executeQuery();
 			
 			ArrayList list = new ArrayList();
-			
 			if(rs.next()){
 				BBMsgData temp = new BBMsgData();
 				temp.no = rs.getInt("MS_NO");
 				temp.sendId = rs.getString("MS_SENDID");
-				temp.sendId = rs.getString("MS_RECEIVEID");
-				temp.bookNo = rs.getInt("MS_BNO");
-				temp.msDate = rs.getString("MS_DATE");
+				temp.bookNo = rs.getInt("BR_NO");
 				temp.msTxt = rs.getString("MS_TEXT");
-				temp.check = rs.getString("MS_CHECK");	
+				
+				System.out.println("=================dao단에서 rs로 받을 값을 출력 :" + temp.toString());
 				list.add(temp);
 			}else{
 				returnData.isSuccess = false;
@@ -85,7 +87,7 @@ public class DataAccessObject {
 				temp.no = rs.getInt("MS_NO");
 				temp.sendId = rs.getString("MS_SENDID");
 				temp.sendId = rs.getString("MS_RECEIVEID");
-				temp.bookNo = rs.getInt("MS_BNO");
+				temp.bookNo = rs.getInt("BR_NO");
 				temp.msDate = rs.getString("MS_DATE");
 				temp.msTxt = rs.getString("MS_TEXT");
 				temp.check = rs.getString("MS_CHECK");	

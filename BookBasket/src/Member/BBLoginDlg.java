@@ -14,10 +14,10 @@ import java.util.*;
 import Main.*;
 public class BBLoginDlg /* extends JDialog */ extends JFrame{
 
-	JTextField idF;
-	JPasswordField pwF;
-	JButton loginB, closeB, evtBtn;
-	JLabel blankL, loginL, idL, pwL;
+	public JTextField idF;
+	public JPasswordField pwF;
+	public JButton loginB, closeB, evtBtn;
+	public JLabel blankL, loginL, idL, pwL;
 	boolean isState_lgin = false ;
 	
 	BBMain main;
@@ -85,7 +85,7 @@ public class BBLoginDlg /* extends JDialog */ extends JFrame{
 		add(p3, "Center");
 		add(p4, "South");
 		
-		setSize(300, 160);
+		setSize(300, 180);
 		setResizable(false);
 	}
 	
@@ -112,7 +112,7 @@ public class BBLoginDlg /* extends JDialog */ extends JFrame{
 				}
 			}else {
 				joinDlg = new BBJoinDlg(BBLoginDlg.this);
-				BBLoginDlg.this.dispose();
+				BBLoginDlg.this.setVisible(false);
 			}
 		}
 	}	

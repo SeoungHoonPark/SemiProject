@@ -34,8 +34,7 @@ public class BBMainServer extends Thread {
 			dao = new DataAccessObject();
 		}catch (Exception e) {
 			System.exit(0);
-		}
-		
+		}		
 	}
 		
 	public void run(){

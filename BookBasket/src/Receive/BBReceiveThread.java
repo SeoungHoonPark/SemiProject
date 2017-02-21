@@ -23,7 +23,6 @@ public class BBReceiveThread extends Thread {
 				case 2001:
 //					setJoin(data);			//회원 가입
 				case 2101:
-					System.out.println("여긴 넘어오냐?");
 					setLogin(data);
 					break;
 				case 2201:					// 책 검색 관련
@@ -33,6 +32,7 @@ public class BBReceiveThread extends Thread {
 //					setRentalProcess(Data);
 					break;
 				case 2401: 				// 쪽지 관련
+					System.out.println("여긴 넘어오냐?");
 					setMessageProcess(data);
 					break;
 				case 2402: 				// 쪽지 관련
@@ -56,7 +56,9 @@ public class BBReceiveThread extends Thread {
 	void setMessageProcess(BBMainData data){
 		System.out.println("쪽지 엑션");
 		if(data.isSuccess){
+	System.out.println("리져브th레드--->	 " +	data.toString());
 			main.data = data;
+			
 		}else{
 			System.out.println("쪽지 정보 Access 오류");
 		}

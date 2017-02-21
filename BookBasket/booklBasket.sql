@@ -81,12 +81,12 @@ CREATE TABLE b_msg
 	ms_no number(10) NOT NULL,
 	ms_sendid varchar2(50),
 	ms_receiveid varchar2(50),
+	br_no	number(10),
 	ms_date date,
 	ms_text varchar2(2000),
 	ms_check char,
 	PRIMARY KEY (ms_no)
 );
-
 
 
 /* Create Foreign Keys */
@@ -135,5 +135,5 @@ ALTER TABLE B_Rsrv
 
 /* Comments */
 
-COMMENT ON COLUMN B_Member.bm_no IS '?�원 관리�? ?�한 ?�련번호';
-COMMENT ON COLUMN B_Rsrv.br_rid IS '?�원 관리�? ?�한 ?�련번호';
+COMMENT ON COLUMN B_Member.bm_no IS '?�원 관리�? ?�한 ?�련번호';
+COMMENT ON COLUMN B_Rsrv.br_rid IS '?�원 관리�? ?�한 ?�련번호';

@@ -26,6 +26,7 @@ import javax.swing.border.TitledBorder;
 import Book.BBBookRegDlg;
 import Book.BBBookSearch;
 import Data.BBMainData;
+import Data.BBMemberData;
 import Member.BBLoginDlg;
 import Message.BBMessageMain;
 import Receive.BBReceiveThread;
@@ -202,7 +203,7 @@ public class BBMain extends JFrame {
 	public static void main(String[] args) {
 		// LookAndFeel 적용
 		try {
-			// 맥 스타일
+			// 맥 스타일s
 //			UIManager.setLookAndFeel("com.jtattoo.plaf.mcwin.McWinLookAndFeel");
 			
 			// 블랙 스타일 
@@ -220,11 +221,20 @@ public class BBMain extends JFrame {
 		public void actionPerformed(ActionEvent e){
 			String str = (String) e.getActionCommand();
 			
-			if ( str.equals("메세지함")){
+			data = new BBMainData();
+			data.protocol = 1401;
+			BBMemberData temp = new BBMemberData();
+			temp.id = loginDlg.idF.getText();
+			
+			data.memberData = temp;
+			
+			try{				
+				oout.writeObject(data);
 				msgMain = new BBMessageMain(BBMain.this);
+			}catch (Exception ee) {
 			}
-			else if( str.equals("Logout")){
-				
+			
+			if( str.equals("Logout")){	
 			}
 		}
 	}
