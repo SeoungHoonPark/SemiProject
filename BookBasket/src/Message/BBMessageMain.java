@@ -6,6 +6,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.Iterator;
 import java.util.Vector;
 
 import javax.swing.JButton;
@@ -33,8 +34,6 @@ public class BBMessageMain  extends JFrame {
 	JButton MessageBtn; 	// 메시지폼 호출 버튼
 	JTable fromTable, toTable;						// 받은 탭쪽 테이블, 보낸 탭쪽 테이블
 	DefaultTableModel fromModel, toModel;	// 받은 탭쪽 모델, 보낸 탭쪽 모델
-	
-	
 	
 	// BookBasket메인과 상호참조를 위한 생성자
 	public BBMessageMain(BBMain bbMain){
@@ -111,36 +110,9 @@ public class BBMessageMain  extends JFrame {
 				int locW = (winSize.width - frameSize.width)/2;
 				int locH = (winSize.height - frameSize.height)/2;
 				setLocation(locW, locH);
-				
+	
 				System.out.println(frameSize.width+ " , " + frameSize.height);
-				
-				/* #####################################
-				 * ######### 리시버로 부터 넘어온 데이터를 처리할 영역 #####
-				 * #####################################
-				 */
-		while(main.data.msgFromList.listIterator() != null){				
-				Object[] o = new Object[4];
-				o[0] = main.data.msgData.no;
-				o[1] = main.data.msgData.sendId;
-				o[2] = main.data.msgData.msTxt;
-				o[3] = main.data.msgData.msDate;
-				fromModel.addRow(o);
-		}
-		
-		while(main.data.msgToList.listIterator() != null){				
-			Object[] o = new Object[4];
-			o[0] = main.data.msgData.no;
-			o[1] = main.data.msgData.sendId;
-			o[2] = main.data.msgData.msTxt;
-			o[3] = main.data.msgData.msDate;
-			fromModel.addRow(o);
 	}
-		
-	}
-
-//	public static void main(String[] args) {
-//		new BBMessageMain();
-//	}
 	
 	class TableEvent extends MouseAdapter{
 		public void mousePressed(MouseEvent e){
@@ -148,4 +120,37 @@ public class BBMessageMain  extends JFrame {
 			msgView = new BBMessageViewDlg(BBMessageMain.this);
 		}
 	}
+	
+	/* ###########################################
+	 * ######### 리시버로 부터 넘어온 데이터를 model에 출력하는 함수  #######
+	 * ###########################################
+	 */
+	public void DisplayModel(){		
+		Iterator	iter = main.data.msgFromList.iterator();
+		
+		while(iter.hasNext()){
+			System.out.println("FromList === " +  main.data.msgFromList.toString());
+
+				BBMsgData temp = (BBMsgData) iter.next();
+				Object[] o = new Object[4];
+				o[0] = temp.no;
+				o[1] = temp.sendId;
+				o[2] = temp.msTxt;
+				o[3] = temp.msDate;
+				fromModel.addRow(o);
+		}
+		
+		Iterator	iter2 = main.data.msgToList.iterator();
+		while(main.data.msgToList.iterator().hasNext()){
+			System.out.println("FromList === " +  main.data.msgFromList.toString());
+			BBMsgData temp = (BBMsgData) iter2.next();
+			
+			Object[] o = new Object[4];
+			o[0] = temp.no;
+			o[1] = temp.sendId;
+			o[2] = temp.msTxt;
+			o[3] = temp.msDate;
+			toModel.addRow(o);
+		}
+	}	
 }

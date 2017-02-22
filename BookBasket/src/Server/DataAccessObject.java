@@ -34,35 +34,63 @@ public class DataAccessObject {
 	/*
 	 * 받은 쪽지 리스트 검색
 	 */
-	public BBMainData getMsgFromSelect(HashMap id){
+	public BBMainData getMsgListSelect(String id){
 		ResultSet rs = null;
 		BBMainData returnData = new BBMsgData();
 		
 		try{
 			System.out.println("아이디값 : " + id);
-			
-			selectFromListMsgS.setObject(1, id);
-			
+			selectFromListMsgS.setString(1, id);
 			rs = selectFromListMsgS.executeQuery();
 			
 			ArrayList list = new ArrayList();
+			
 			if(rs.next()){
 				BBMsgData temp = new BBMsgData();
+// BBSql.selectFromListMsg ==> SELECT MS_NO, MS_SENDID, MS_BNO, MS_DATE, MS_TEXT FROM B_MSG WHERE MS_RECEIVEID=?
 				temp.no = rs.getInt("MS_NO");
 				temp.sendId = rs.getString("MS_SENDID");
-				temp.bookNo = rs.getInt("BR_NO");
+				temp.bookNo = rs.getInt("MS_BNO");
+				temp.msDate = rs.getString("MS_DATE");
 				temp.msTxt = rs.getString("MS_TEXT");
-				
-				System.out.println("=================dao단에서 rs로 받을 값을 출력 :" + temp.toString());
+				System.out.println("=================dao단 받은 쪽지 처리에서 rs로 받을 값을 출력 :" + temp.toString());
 				list.add(temp);
 			}else{
 				returnData.isSuccess = false;
 			}
-			returnData.msgFromList = list;				// 받은 쪽지 처리를 위한 리스트 변수에 담는다.
-			returnData.isSuccess = true;
+			
+			returnData.msgFromList = list;				// 받은 쪽지 처리를 위한 리스트 변수에 담는다.	
 			
 		}catch (Exception e) {
 			System.out.println("받은 쪽지 리스트 처리 에러 = " + e);
+		}
+		
+		// 이쪽에서는 전달한 쪽지 처리
+		try{
+			selectToListMsgS.setString(1, id);
+			rs = selectToListMsgS.executeQuery();
+			
+			ArrayList list = new ArrayList();
+			
+			if(rs.next()){
+				BBMsgData temp = new BBMsgData();
+// BBSql.selectToListMsg = SELECT MS_NO, MS_RECEIVEID, MS_BNO, MS_DATE, MS_TEXT FROM B_MSG WHERE MS_SENDID=?
+				temp.no = rs.getInt("MS_NO");
+				temp.receiveId = rs.getString("MS_RECEIVEID");
+				temp.bookNo = rs.getInt("MS_BNO");
+				temp.msDate =  rs.getString("MS_DATE");
+				temp.msTxt = rs.getString("MS_TEXT");
+				System.out.println("=================dao단 전달한 쪽지 처리에서 rs로 받을 값을 출력 :" + temp.toString());
+				list.add(temp);				
+			}else{
+				returnData.isSuccess = false;
+			}
+			
+			returnData.msgToList = list;				// 보낸 쪽지 처리를 위한 리스트 변수에 담는다.
+			returnData.isSuccess = true;
+		
+		}catch (Exception e) {
+			System.out.println("전달한 쪽지 리스트 처리 에러 = " + e);
 		}finally {
 			db.close(rs);
 		}
@@ -72,39 +100,40 @@ public class DataAccessObject {
 	/*
 	 * 전달한 쪽지 리스트 검색
 	 */
-	public BBMainData getMsgToSelect(BBMsgData data){
-		ResultSet rs = null;
-		BBMainData returnData = new BBMsgData();
-		
-		try{
-			selectFromListMsgS.setString(1, data.sendId);
-			rs = selectFromListMsgS.executeQuery();
-			
-			ArrayList list = new ArrayList();
-			
-			if(rs.next()){
-				BBMsgData temp = new BBMsgData();
-				temp.no = rs.getInt("MS_NO");
-				temp.sendId = rs.getString("MS_SENDID");
-				temp.sendId = rs.getString("MS_RECEIVEID");
-				temp.bookNo = rs.getInt("BR_NO");
-				temp.msDate = rs.getString("MS_DATE");
-				temp.msTxt = rs.getString("MS_TEXT");
-				temp.check = rs.getString("MS_CHECK");	
-				list.add(temp);
-			}else{
-				returnData.isSuccess = false;
-			}
-			returnData.msgFromList = list;				// 받은 쪽지 처리를 위한 리스트 변수에 담는다.
-			returnData.isSuccess = true;
-			
-		}catch (Exception e) {
-			System.out.println("받은 쪽지 리스트 처리 에러 = " + e);
-		}finally {
-			db.close(rs);
-		}
-		return returnData;
-	}
+//	public BBMainData getMsgToSelect(String id){
+//		ResultSet rs = null;
+//		BBMainData returnData = new BBMsgData();
+//		
+//		try{
+//			selectToListMsgS.setString(1, id);
+//			rs = selectToListMsgS.executeQuery();
+//			
+//			ArrayList list = new ArrayList();
+//			
+//			if(rs.next()){
+//				BBMsgData temp = new BBMsgData();
+//				//return Data = SELECT MS_NO, MS_RECEIVEID, MS_BNO, MS_DATE, MS_TEXT FROM B_MSG WHERE MS_SENDID=?
+//				temp.no = rs.getInt("MS_NO");
+//				temp.receiveId = rs.getString("MS_RECEIVEID");
+//				temp.bookNo = rs.getInt("MS_BNO");
+//				temp.msDate =  rs.getString("MS_DATE");
+//				temp.msTxt = rs.getString("MS_TEXT");
+//				
+//				System.out.println("=================dao단에서 rs로 받을 값을 출력 :" + temp.toString());
+//				list.add(temp);
+//			}else{
+//				returnData.isSuccess = false;
+//			}
+//			returnData.msgToList = list;				// 보낸 쪽지 처리를 위한 리스트 변수에 담는다.
+//			returnData.isSuccess = true;
+//			
+//		}catch (Exception e) {
+//			System.out.println("보낸 쪽지 리스트 처리 에러 = " + e);
+//		}finally {
+//			db.close(rs);
+//		}
+//		return returnData;
+//	}
 	
 	/*
 	 * 로그인 처리

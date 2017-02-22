@@ -23,12 +23,13 @@ public class BBSql {
 			sql = "select BM_NO, BM_ID, BM_NAME, BM_PHONE from B_MEMBER where bm_id = ? and bm_pw = ?";
 			break;
 		case selectFromListMsg:			//받은 쪽지 리스트 처리
-			sql = "SELECT MS_NO, MS_SENDID, BR_NO, MS_TEXT, MS_DATE FROM B_MSG WHERE MS_RECEIVEID=?";
+			sql = "SELECT MS_NO, MS_SENDID, MS_BNO, MS_DATE, MS_TEXT FROM B_MSG WHERE MS_RECEIVEID=?";
 			break;
 		case selectToListMst:				//전달한 쪽지 리스트 처리
-			sql = "SELECT MS_NO, MS_SENDID, BR_NO,  MS_TEXT, MS_DATE FROM B_MSG WHERE MS_SENDID=?";
+			sql = "SELECT MS_NO, MS_RECEIVEID, MS_BNO, MS_DATE, MS_TEXT FROM B_MSG WHERE MS_SENDID=?";
 			break;
 		}
+		System.out.println("sql = " + sql);
 		return sql;
 	}
 }

@@ -32,11 +32,8 @@ public class BBReceiveThread extends Thread {
 //					setRentalProcess(Data);
 					break;
 				case 2401: 				// 쪽지 관련
-					System.out.println("여긴 넘어오냐?");
 					setMessageProcess(data);
 					break;
-				case 2402: 				// 쪽지 관련
-					setMessageProcess(data);
 				}
 			}
 		}catch (Exception e) {			
@@ -54,11 +51,12 @@ public class BBReceiveThread extends Thread {
 		}
 	}
 	void setMessageProcess(BBMainData data){
-		System.out.println("쪽지 엑션");
+		System.out.println("쪽지 액션");
 		if(data.isSuccess){
-	System.out.println("리져브th레드--->	 " +	data.toString());
-			main.data = data;
+			System.out.println("BBReceiveThread.setMessageProcess.FromList 리져브th레드--->	 " +	data.msgFromList.toString());
+			System.out.println("BBReceiveThread.setMessageProcess.ToList 리져브th레드--->	 " +	data.msgToList.toString());
 			
+			main.data = data;
 		}else{
 			System.out.println("쪽지 정보 Access 오류");
 		}

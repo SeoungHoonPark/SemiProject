@@ -16,7 +16,7 @@ public class BBClientThread extends Thread {
 	public Socket 			socket;
 	public ObjectInputStream 	oin;
 	public ObjectOutputStream	oout;
-	
+
 	
 	public BBClientThread(BBMainServer m, Socket s) throws Exception{
 		main = m;
@@ -33,35 +33,38 @@ public class BBClientThread extends Thread {
 		sData.protocol = 2101;
 		this.sendData(sData);
 	}
-	// 받은 쪽지리스트 검색
-	void messageFromProcess(BBMainData data){
+	// 받은 쪽지 리스트 검색
+	void messageListProcess(BBMainData data){
 		
-		System.out.println("받은쪽지리스트 관련 서버로 넘어온 데이터 : " + data.memberData.toString());
-		HashMap map = new HashMap();
-		map.put("id", data.memberData.id);
-		BBMainData sData = main.dao.getMsgFromSelect(map);
+		System.out.println("받은 쪽지리스트 관련 서버로 넘어온 데이터 : " + data.memberData.toString());
+		String id = data.memberData.id;
 		
-		System.out.println("sData ========== " + sData.toString());
+		BBMainData sData = main.dao.getMsgListSelect(id);
+		
+		System.out.println("BBClientThread.messageFromProcess함수에서 보내는 sData ========== " + sData.msgFromList.toString());
 		
 		sData.protocol = 2401;
 		this.sendData(sData);
 	}
 	
-	// 전달한 쪽지 지리스트 검색(미구현)
-		void messageToProcess(BBMainData data){
-			System.out.println("전달한쪽지리스트 관련 서버로 넘어온 데이터 : " + data.msgData.toString());
-			BBMainData sData = main.dao.getMsgToSelect(data.msgData);
-			
-			sData.protocol = 2402;
-			this.sendData(sData);
-		}
-	
-	
+//	// 보낸 쪽지 지리스트 검색
+//	void messageToProcess(BBMainData data){
+//		System.out.println("전달한 쪽지리스트 관련 서버로 넘어온 데이터 : " + data.msgData.toString());
+//		String id = data.memberData.id;
+//		
+//		BBMainData sData = main.dao.getMsgToSelect(id);
+//		
+//		System.out.println("BBClientThread.messageToProcess함수에서 보내는 sData ========== " + sData.toString());
+//		sData.protocol = 2401;
+//		this.sendData(sData);
+//	}
+		
 	public void run(){
 		try{
 			while(true){
 				BBMainData returnData = (BBMainData)oin.readObject();
-System.out.println("넘어온 프로토콜 난바와? : " + returnData.protocol);
+
+				System.out.println("넘어온 프로토콜 난바와? : " + returnData.protocol);
 
 				switch(returnData.protocol){
 				case 1001:			// 회원 가입
@@ -76,13 +79,10 @@ System.out.println("넘어온 프로토콜 난바와? : " + returnData.protocol)
 				case 1301:			// 예약 관련
 //					rentalProcess(returnData);
 					break;
-				case 1401: 		// 쪽지 관련(받은 쪽지)
-					System.out.println("받은 쪽지 관련 정보 : " + returnData.memberData.toString());
-					messageFromProcess(returnData);
-					break;
-				case 1402: 		// 쪽지 관련(전달 쪽지)
-					messageToProcess(returnData);
-					break;
+				case 1401: 		// 쪽지(받은,보낸) 관련
+					System.out.println("쪽지 처리 관련 정보 : " + returnData.memberData.toString());
+					messageListProcess(returnData);
+					break;	
 				}
 			}
 		}catch (Exception e) {

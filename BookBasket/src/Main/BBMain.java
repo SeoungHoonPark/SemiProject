@@ -199,7 +199,6 @@ public class BBMain extends JFrame {
 		this.setVisible(true);
 	}
 	
-	
 	public static void main(String[] args) {
 		// LookAndFeel 적용
 		try {
@@ -229,8 +228,9 @@ public class BBMain extends JFrame {
 			data.memberData = temp;
 			
 			try{				
-				oout.writeObject(data);
+				oout.writeObject(data);	// 쪽지 처리를 위한 out stream
 				msgMain = new BBMessageMain(BBMain.this);
+				msgMain.DisplayModel();
 			}catch (Exception ee) {
 			}
 			
