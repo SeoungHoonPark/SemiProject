@@ -6,6 +6,6 @@
 	<classpathentry kind="lib" path="laf/synthetica_2.20.2_eval/synthetica.jar"/>
 	<classpathentry kind="lib" path="laf/syntheticaBlackEye.jar"/>
 	<classpathentry kind="lib" path="laf/JTattoo-1.6.11.jar"/>
-	<classpathentry kind="lib" path="D:/source/ojdbc6.jar"/>
+	<classpathentry kind="lib" path="C:/WAProject/Other_Project/ojdbc6.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

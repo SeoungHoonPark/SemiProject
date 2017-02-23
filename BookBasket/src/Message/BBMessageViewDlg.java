@@ -22,6 +22,7 @@ public class BBMessageViewDlg  extends JFrame {
 	
 	JTextField filed, subject;
 	JTextArea area;
+	
 //	public BBMessageViewDlg(){};
 	public BBMessageViewDlg(BBMessageMain m) {
 		main = m;
@@ -29,7 +30,7 @@ public class BBMessageViewDlg  extends JFrame {
 	
 	public BBMessageViewDlg() {*/
 		// 메시지 확인(dialog 화면) 좌측 화면 구성
-		JLabel filedLabel= new JLabel("쪽지 보낸 사람 : ");
+		JLabel filedLabel= new JLabel( main.whose + " : ");
 		JLabel rentSubjectLabel= new JLabel("예약 희망 도서 : ");
 		JLabel areaLabel= new JLabel("", JLabel.CENTER);
 		areaLabel.setAlignmentX(BOTTOM_ALIGNMENT);
@@ -86,6 +87,10 @@ public class BBMessageViewDlg  extends JFrame {
 		int locW = (winSize.width - frameSize.width)/2;
 		int locH = (winSize.height - frameSize.height)/2;
 		setLocation(locW, locH);
+	}
+	
+	public void dataSetting(){
+		// 이쪽에서 data셋팅
 	}
 	
 //	public static void main(String[] args) {

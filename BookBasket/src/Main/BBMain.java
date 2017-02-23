@@ -38,11 +38,11 @@ import de.javasoft.plaf.synthetica.SyntheticaLookAndFeel;
  * 	3개의 화면을 Tabb 이 생기는 JTabbedPane으로 관리할 화면  
  */
 public class BBMain extends JFrame {
-	BBLoginDlg		loginDlg;	// 로그인 화면 클래스 선언...
-	BBBookSearch bookSearchMain;	// 책 검색 화면 클래스 선언...
-	BBBookRegDlg bookRegDlgMain;	// 책 등록 화면 클래스 선언...
-	BBRentalMain bookRentalMain;		// 책 예약 화면 클래스 선언...
-	BBMessageMain msgMain;			// 메세지 함 메인화면 클래스 선언...
+	public BBLoginDlg		loginDlg;	// 로그인 화면 클래스 선언...
+	public BBBookSearch bookSearchMain;	// 책 검색 화면 클래스 선언...
+	public BBBookRegDlg bookRegDlgMain;	// 책 등록 화면 클래스 선언...
+	public BBRentalMain bookRentalMain;		// 책 예약 화면 클래스 선언...
+	public BBMessageMain msgMain;			// 메세지 함 메인화면 클래스 선언...
 	
 	
 	public JTabbedPane bbMainTP;
@@ -50,6 +50,7 @@ public class BBMain extends JFrame {
 	public JButton logoutB, msgBoxB;
 	public JLabel msgL1, msgL2;
 	public String name ="박세빈";
+	public String id;
 	public int msgNum = 3 ;
 	public int bookNum = 1;
 	
@@ -177,8 +178,8 @@ public class BBMain extends JFrame {
 		add(mainSide, "East");	// 사이드 메뉴들을 넣어준다.
 		
 		// ==================== 소켓 생성 ====================
-		try{	//192.168.25.3
-			socket = new Socket("192.168.35.72", 9991);
+		try{	//192.168.25.3  "192.168.35.72"
+			socket = new Socket("192.168.25.3", 9991);
 			oout = new ObjectOutputStream(socket.getOutputStream());
 			oin = new ObjectInputStream(socket.getInputStream());
 			thread = new BBReceiveThread(this);
@@ -230,7 +231,8 @@ public class BBMain extends JFrame {
 			try{				
 				oout.writeObject(data);	// 쪽지 처리를 위한 out stream
 				msgMain = new BBMessageMain(BBMain.this);
-				msgMain.DisplayModel();
+				msgMain.DisplayModel1();
+				msgMain.DisplayModel2();
 			}catch (Exception ee) {
 			}
 			
