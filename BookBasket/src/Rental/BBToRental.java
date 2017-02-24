@@ -8,26 +8,35 @@ import javax.swing.table.*;
 import java.awt.*;
 
 public class BBToRental extends JPanel {
-	BBRentalMain main;
+	public BBRentalMain main;
 	
-	JTable table;
-	
+	public JTable table;
+	public DefaultTableModel tmodel;
 	public BBToRental(BBRentalMain m) {
 		main = m;
 		
-		table = new JTable(new DefaultTableModel(new Object[]{"NO", "책이름","신청자","예약현황","요청일"},100));
+/*		
+ *  String[] fldName = {"no", "책이름", "저자", "책주인", "책상태", "예약현황", "등록일"};
+	tmodel = new DefaultTableModel(fldName, 0);	
+	bSrchTable = new JTable(tmodel);
+*/
+		String[] fldName = {"NO", "책이름","신청자","예약상태","요청일"};
+		tmodel = new DefaultTableModel(fldName, 0);
+		table = new JTable(tmodel);
+		
 		JLabel panelLabel = new JLabel("    신청받은 책");
 		JScrollPane tPane = new JScrollPane(table);
 		
 		// 테이블 생성, 모델 생성, 객체배열({목록},행숫자) 생성,  제목인 라벨 생성.
 		// 생성 된 테이블 JScrollPane 으로 입력. 
 		
-//		table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-//		table.getColumnModel().getColumn(0).setPreferredWidth(35);
-//		table.getColumnModel().getColumn(1).setPreferredWidth(165);
-//		table.getColumnModel().getColumn(2).setPreferredWidth(55);
-//		table.getColumnModel().getColumn(3).setPreferredWidth(55);
-//		table.getColumnModel().getColumn(4).setPreferredWidth(75);
+		table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		table.getColumnModel().getColumn(0).setPreferredWidth(35);
+		table.getColumnModel().getColumn(1).setPreferredWidth(140);
+		table.getColumnModel().getColumn(2).setPreferredWidth(60);
+		table.getColumnModel().getColumn(3).setPreferredWidth(75);
+		table.getColumnModel().getColumn(4).setPreferredWidth(75);
+
 		
 		// 테이블 내용 자동너비조절 OFF, 컬럼마다 임의로 너비지정.
 		

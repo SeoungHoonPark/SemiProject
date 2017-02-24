@@ -20,3 +20,4 @@ public class BBMemberData extends BBMainData{
 				+ ", phone=" + phone + ", jdate=" + jdate + "]";
 	}
 }
+

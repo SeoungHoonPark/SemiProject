@@ -1,5 +1,5 @@
 package Book;
-import java.awt.BorderLayout;
+import java.awt.BorderLayout; 
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 
 /*
@@ -23,8 +22,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-
+import Data.BBBookData;
 import Data.BBMainData;
+import Data.BBMemberData;
 import Main.BBMain;
 import SQL.MyJDBC;
 
@@ -40,13 +40,16 @@ public class BBBookSearch extends JPanel {
 	JPanel centerMainP;
 	Integer BookRowNo;
 	
+	String bnameSearch = "";
+	String idSearch	   = "";
+	
 	//-- 테스트용
 	MyJDBC		db;
 	ResultSet			rs = null;
 	Connection 			conn = null;
 	PreparedStatement 	pstmtTotalSearch, test;
 	Statement			stmt = null;
-	
+
 	public BBBookSearch(BBMain m) {
 		main = m ;
 		
@@ -126,31 +129,6 @@ public class BBBookSearch extends JPanel {
 		add(sideP, "West");
 		add(centerMainP, "Center");
 		
-/*		bb_no 	  number(10),
-		bb_name   varchar2(200),
-		bb_writer varchar2(200),
-		bb_ownerid varchar2(50),
-		bb_company varchar2(200),
-		bb_date	   date,
-		bb_status  char(4),
-		bb_visibleYN char(1),
-		bb_buyd	  varchar2(50)*/
-		
-/*		db = new MyJDBC();
-		String sql = "SELECT bb_no 번호, bb_name 책이름, bb_writer 저자, bb_ownerid 소유자,"
-				+ "bb_company 출판사, bb_date 등록일,bb_status 책상태"
-				+ " FROM b_book where bb_visibleYN='Y'";
-		System.out.println(sql);
-		try {
-			test = db.getPSTMT(sql);
-			rs = test.executeQuery();	
-			bSrchTable.setModel(DbUtils.resultSetToTableModel(rs));
-		} catch (SQLException e) {
-			System.out.println(e);
-			e.printStackTrace();
-		}*/
-		
-		
 	
 	}
 	
@@ -160,6 +138,26 @@ public class BBBookSearch extends JPanel {
 //	}
 	
 	public void deleteProc(){
+		BookRowNo = bSrchTable.getSelectedRow();
+//		if(BookRowNo == -1){
+//			return;
+//		}
+		System.out.println("마우스클릭 row:"+BookRowNo);
+		int Bno = (Integer)bSrchTable.getValueAt(BookRowNo, 0);
+		System.out.println("삭제할 책번호 :"+Bno);
+		
+		BBMainData mainD = new BBMainData();
+		BBBookData DataB = new BBBookData();
+		mainD.protocol = 1204;
+		DataB.bb_no = Bno;
+		mainD.bookData = DataB;
+		// 서버에 보내기
+		try {
+			main.oout.writeObject(mainD);
+		} 
+		catch (Exception e2) {}
+		
+		main.bookSearchMain.searchAllProc();
 		
 	}
 	
@@ -179,7 +177,7 @@ public class BBBookSearch extends JPanel {
 	public void availableSearch(){
 		BBMainData Data = new BBMainData();
 		
-		Data.protocol = 1202;
+		Data.protocol = 1205;
 		System.out.println("대출가능검색 요청프로토콜 : "+Data.protocol);
 		
 		try{
@@ -189,23 +187,66 @@ public class BBBookSearch extends JPanel {
 		}
 	}
 	
+	public void myBookSearch(){
+		BBMainData Data = new BBMainData();
+		BBMemberData MemberData = new BBMemberData();
+		
+		String id = MemberData.id;
+		//String id2 = Data.memberData.id;
+		System.out.println(id + " ");
+		//System.out.println(id2 + " ");
+		
+		System.out.println("아이디 값 받아오기 멤버"+idSearch);
+		
+		
+		Data.protocol = 1206;
+		System.out.println("내책검색 요청프로토콜 : "+Data.protocol);
+		
+		try{
+			main.oout.writeObject(Data);
+		}catch(IOException e1){
+			e1.printStackTrace();
+		}
+	}
+	
+	public void BooknameSearch(){
+		BBMainData Data = new BBMainData();
+		BBBookData BookData = new BBBookData();
+		
+		BookData.bb_name = bnameSearch;
+		
+		
+		Data.protocol = 1207;
+		Data.bookData = BookData;
+		System.out.println("내책검색 요청프로토콜 : "+Data.protocol);
+//		Data.BookD.bb_name = bnameSearch;
+		
+		try{
+			main.oout.writeObject(Data);
+		}catch(IOException e1){
+			e1.printStackTrace();
+		}
+		System.out.println("책이름 입력 값: " + bnameSearch);
+		
+	}
+	
 	
 	class BookSrchEvent implements ActionListener {
 		public void actionPerformed(ActionEvent e){
 			String comm = (String) e.getActionCommand();
-	/**
-	 * 마우스로 클릭한 row 값 알아내는 함수 추가_김예송  		
-	 */
 			BookRowNo = bSrchTable.getSelectedRow();
+			
 			if(BookRowNo == -1){
 				return;
 			}
 			
 			if ( comm.equals("대출예약")){
 				rentalDlg = new BBRentalDlg(BBBookSearch.this);
+				
 			}
 			else if ( comm.equals("책 수정")){
 				bookMdfDlg = new BBModifyDlg(BBBookSearch.this);
+				
 			}
 			else if ( comm.equals("책 삭제")){
 				deleteProc();
@@ -218,18 +259,19 @@ public class BBBookSearch extends JPanel {
 				
 			}
 			else if ( comm.equals("내책 검색")){
-				
+				myBookSearch();
 			}
 			else if ( comm.equals("책이름 검색")){
-				
+
+
 				Icon img = null; // 이미지 아이콘 만들기...
 				try {
 		            img = new ImageIcon("./src/Data/icon_livro.png");
 		        } catch(Exception me) {
 		            me.printStackTrace();
 		        }
-				String str1 = JOptionPane.showInputDialog(main, "책 이름을 입력하세요!", "책 이름 검색", JOptionPane.QUESTION_MESSAGE);
-				System.out.println(str1);
+				bnameSearch = JOptionPane.showInputDialog(main, "책 이름을 입력하세요!", "책 이름 검색", JOptionPane.QUESTION_MESSAGE);
+				BooknameSearch();
 			}
 			
 		}

@@ -20,8 +20,9 @@ public class BBRentalDlg extends JFrame {
 	BBBookSearch main;
 	JTextField BownerF, BnameF, BwriterF;
 	JTextArea memoText;
-	String Bid = main.main.data.memberData.id; // 로그인id 전역변수
+	String Bid; // 로그인id 전역변수
 	String Bo; // 책소유자id 전역변수
+	public Integer Bno;// 선택한 row의 책번호 전역변수
 	PreparedStatement pstmt;
 	ResultSet rs;
 	
@@ -99,6 +100,7 @@ public class BBRentalDlg extends JFrame {
 			}
 			System.out.println("마우스클릭 row:"+row);
 			// 테이블의 선택된 내용 스트링으로 알아낸 뒤 
+			Bno = (Integer)main.bSrchTable.getValueAt(row, 0);
 			String Bn = (String)main.bSrchTable.getValueAt(row, 1);
 			String Bw = (String)main.bSrchTable.getValueAt(row, 2);
 			Bo = (String)main.bSrchTable.getValueAt(row, 3);
@@ -125,17 +127,21 @@ public class BBRentalDlg extends JFrame {
 			String text = memoText.getText();
 			System.out.println("메시지 내용:"+text);
 			// 로그인한 아이디 알아내고
-			//Bid = main.main.id; // 로그인 아이디(쪽지 보내는 사람)
+			Bid = main.main.id; // 로그인 아이디(쪽지 보내는 사람)
+			
 			// 로그인한 아이디, 받는 아이디, 문자내용을 메인데이터에 보내기
 			
 			// 서버에 보내기 위한 데이터 묶기
 			BBMainData mainD = new BBMainData();
+			BBBookData DataB = new BBBookData();
 			BBMsgData DataM = new BBMsgData();
 			mainD.protocol = 1403;
+			DataB.bb_no = Bno;
 			DataM.sendId = Bid;
 			DataM.receiveId = Bo;
 			DataM.msTxt = text;
 			mainD.msgData = DataM;
+			mainD.bookData = DataB;
 			
 //			// 서버에 보내기
 			try {

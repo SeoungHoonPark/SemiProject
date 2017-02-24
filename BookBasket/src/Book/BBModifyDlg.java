@@ -16,7 +16,7 @@ import java.sql.ResultSet;
  */
 public class BBModifyDlg extends JFrame  {
 	BBBookSearch main;
-	JTextField BnameF, BwriterF, BcomF, ByearF, BmonthF;
+	JTextField BnameF, BwriterF, ByearF, BmonthF;
 	ButtonGroup bg;
 	JRadioButton sang, jung, ha;
 	PreparedStatement pstmt;
@@ -44,51 +44,34 @@ public class BBModifyDlg extends JFrame  {
 		JLabel Reg_label[] = new JLabel[7];
 		 Reg_label[0] = new JLabel("도서명");
 		 Reg_label[1] = new JLabel("저  자");
-		 Reg_label[2] = new JLabel("출판사");
-		 Reg_label[3] = new JLabel("구입날짜");
-		 Reg_label[4] = new JLabel("년");
-		 Reg_label[5] = new JLabel("월");
 		 Reg_label[6] = new JLabel("책상태");
 		// 텍스트필드 생성 
 		BnameF = new JTextField(20);
 		BwriterF = new JTextField(20);
-		BcomF = new JTextField(20);
-		ByearF = new JTextField(4);
-		BmonthF = new JTextField(2);
 		
 		//라디오버튼 묶기
 		bg.add(sang);
 		bg.add(jung);
 		bg.add(ha);
+		
 		JPanel p0 = new JPanel();
 		p0.add(sang);
 		p0.add(jung);
 		p0.add(ha);
 		
 		//라벨 묶기
-		JPanel p1 = new JPanel(new GridLayout(5,1,10,10));
+		JPanel p1 = new JPanel(new GridLayout(3,1,10,10));
 		p1.add(Reg_label[0]);
 		p1.add(Reg_label[1]);
-		p1.add(Reg_label[2]);
-		p1.add(Reg_label[3]);
 		p1.add(Reg_label[6]);
-		p1.setBounds(50, 30, 100, 200);
-		
-		// 구입년도 칸 합치기
-		JPanel p2 = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		p2.add(ByearF); // 연도 입력칸
-		p2.add(Reg_label[4]); // "년"
-		p2.add(BmonthF); // 월 입력칸
-		p2.add(Reg_label[5]); // "월"
+		p1.setBounds(50, 70, 180, 150);
 		
 		//텍스트필드 묶기
-		JPanel p3 = new JPanel(new GridLayout(5,1,10,10));
+		JPanel p3 = new JPanel(new GridLayout(3,1,10,10));
 		p3.add(BnameF);
 		p3.add(BwriterF);
-		p3.add(BcomF);
-		p3.add(p2);
 		p3.add(p0);
-		p3.setBounds(120, 30,180,200);
+		p3.setBounds(120, 70,180,150);
 		
 		// 버튼 묶기
 		JButton ModifyB = new JButton("수정하기"); 
@@ -115,20 +98,19 @@ public class BBModifyDlg extends JFrame  {
 			Bno = (Integer)main.bSrchTable.getValueAt(row, 0); // 책번호
 			String Bn = (String)main.bSrchTable.getValueAt(row, 1); // 책이름 
 			String Bw = (String)main.bSrchTable.getValueAt(row, 2); // 저자
-//			String Bc = (String)main.bSrchTable.getValueAt(row, 3); // 출판사
-			String Bd = (String)main.bSrchTable.getValueAt(row, 6); // 구입연도
 			String Bs = (String)main.bSrchTable.getValueAt(row, 4); // 책상태
 			// 구입연월 분해
-			String Byear = Bd.substring(0, 4);
-			String Bmonth = Bd.substring(Bd.length()-3, Bd.length());
-			System.out.println("수정하기 상태출력 테스트:"+Bs);
+//			System.out.println("구입연월"+Bd);
+//			String Byear = Bd.substring(0, 4);
+//			String Bmonth = Bd.substring(5,6);
+//			System.out.println("수정하기 상태출력 테스트:"+Bs);
 //			System.out.println("구입연월 나누기 테스트:"+Byear+", "+Bmonth);
 			// 텍스트 필드에 출력
 			BnameF.setText(Bn);
 			BwriterF.setText(Bw);
 //			BcomF.setText(Bc);
-			ByearF.setText(Byear);
-			BmonthF.setText(Bmonth);
+//			ByearF.setText(Byear);
+//			BmonthF.setText(Bmonth);
 			//라디오버튼 값 설정
 			if(Bs.equals("상")){
 				sang.setSelected(true);
@@ -157,11 +139,7 @@ public class BBModifyDlg extends JFrame  {
 			
 				String Bname = BnameF.getText();
 				String Bwriter = BwriterF.getText();
-				String Bcom = BcomF.getText();
-				String Byear = ByearF.getText();
-				String Bmonth = BmonthF.getText();
-				String Bdate = (String)(Byear+Bmonth);
-				System.out.println(Bname+" "+Bwriter+" "+Bcom+" "+Bdate+" ");
+				System.out.println(Bname+" "+Bwriter+" "+" "+" ");
 				
 				// 라디오버튼 값 알아내기
 				String status = "";
@@ -183,12 +161,6 @@ public class BBModifyDlg extends JFrame  {
 				else if(Bwriter==null || Bwriter.length()==0){
 					JOptionPane.showMessageDialog(null, "저자명을 입력하세요.");
 				}
-				else if(Bcom==null || Bcom.length()==0){
-					JOptionPane.showMessageDialog(null, "출판사명을 입력하세요.");
-				}
-				else if(Bdate==null || Bdate.length()==0){
-					JOptionPane.showMessageDialog(null, "구입날짜를 입력하세요.");
-				}
 				else if(status==null || status.length()==0){
 					JOptionPane.showMessageDialog(null, "책상태를 선택하세요.");
 				}
@@ -197,13 +169,9 @@ public class BBModifyDlg extends JFrame  {
 				BBMainData mainD = new BBMainData();
 				BBBookData DataB = new BBBookData();
 				mainD.protocol = 1203;
-				DataB.bb_no= Bno;
+				DataB.bb_no = Bno;
 				DataB.bb_name = Bname;
 				DataB.bb_writer = Bwriter;
-				DataB.bb_com = Bcom;
-				DataB.Byear = Byear;
-				DataB.Bmonth = Bmonth;
-				DataB.bb_date = Bdate;
 				DataB.bb_staus = status;
 				mainD.bookData = DataB;
 				// 서버에 보내기

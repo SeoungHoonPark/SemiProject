@@ -1,18 +1,19 @@
 package Data;
-import java.io.*;
-// 등록된 책 정보에 관한 데이터
-public class BBBookData extends BBMainData{
-	public int bb_no; // 책번호
-	public String bb_name; // 책이름
-	public String bb_writer; // 저자
-	public String bb_com; // 출판사
-	public String bb_ownerid; // 등록한 아이디(책소유자)
-	public String bb_staus; // 책상태
-	public int bb_rcode; // 예약코드
-	public String bb_date; // 구입연월
-	public String Bmonth; // 구입월
-	public String Byear; // 구입연월
-	public char	  bb_visibleYN; 
+
+import java.io.Serializable;
+import java.util.Date;
+
+public class BBBookData implements Serializable {
+	public int bb_no;
+	public String bb_name;
+	public String bb_writer;
+	public String bb_ownerid;
+	public String bb_staus;
+	public int bb_rcode;
+  public String bb_date;
+	public char	  bb_visibleYN;
+  public String bb_com;
+
 
 
 	@Override
@@ -20,4 +21,13 @@ public class BBBookData extends BBMainData{
 		
 		return bb_name;
 	}
+//	bb_no 	  number(10),
+//	bb_name   varchar2(200),
+//	bb_writer varchar2(200),
+//	bb_ownerid varchar2(50),
+//	bb_company varchar2(200),
+//	bb_date	   date,
+//	bb_status  char(4),
+//	bb_visibleYN char(1),
+//	bb_buyd	  varchar2(50)
 }

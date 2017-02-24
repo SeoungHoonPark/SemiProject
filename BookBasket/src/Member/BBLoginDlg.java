@@ -4,8 +4,7 @@ package Member;
  */
 import	javax.swing.*;
 
-import Data.BBMainData;
-import Data.BBMemberData;
+import Data.*;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -18,15 +17,15 @@ public class BBLoginDlg /* extends JDialog */ extends JFrame{
 	public JPasswordField pwF;
 	public JButton loginB, closeB, evtBtn;
 	public JLabel blankL, loginL, idL, pwL;
-	boolean isState_lgin = false ;
+	public boolean isState_lgin = false ;
 	
-	BBMain main;
-	BBLoginDlg loginD;
-	BBJoinDlg joinDlg ;
+	public BBMain main;
+	public BBLoginDlg loginD;
+	public BBJoinDlg joinDlg ;
 	public BBLoginDlg(BBMain m) {
 		main = m ;
 		
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("책바구니 LogIn");
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 		setLocation(dim.width/2 - 150, dim.height/2 - 80);
@@ -86,33 +85,47 @@ public class BBLoginDlg /* extends JDialog */ extends JFrame{
 		add(p4, "South");
 		
 		setSize(300, 180);
+		setVisible(true);
 		setResizable(false);
+	}
+	
+	public void loginProc(){
+		// 아이디와 비밀 번호를 알아내자.
+		
+					String idStr = idF.getText();
+					String pwStr = new String(pwF.getPassword());
+				
+					// 메인 데이터 만들자.
+					BBMainData mainD = new BBMainData();
+//					// 로그인 데이터를 만들자.
+					BBMemberData loginD = new BBMemberData();
+					
+					// 프로토콜 정해주고..
+					mainD.protocol = 1101;
+					// 데이터 넣자.
+					loginD.id = idStr;
+					loginD.pw = pwStr;
+					// 메인데이터에 넣어주자.
+					mainD.memberData = loginD;
+					main.data = mainD ;
+					try {
+						main.oout.writeObject(mainD);
+					}
+					catch(Exception ex){
+						ex.printStackTrace();
+					}
 	}
 	
 	class ButtonEventLogin implements ActionListener {
 		public void actionPerformed(ActionEvent e){
 			JButton btn = (JButton) e.getSource();
 			if (btn.equals(loginB)){
-				String id = idF.getText();
-				String pw = new String (pwF.getPassword());
-		
-				BBMainData data = new BBMainData();
-				BBMemberData mData = new BBMemberData();
-				mData.id = id;
-				mData.pw = pw;
-				data.memberData = mData;
-				data.protocol = 1101; 
-				// 이곳에 프로토콜을 넣어주면 클라이언트가 자동 종료됨 (??)
-				System.out.println("로그인버튼 클릭(서버로 넘어갈 데이터) : " + data.memberData.toString());
-				try{
-					
-					main.oout.writeObject(data);
-				}catch (Exception ee) {
-					ee.printStackTrace();
-				}
+
+				loginProc();
+
 			}else {
 				joinDlg = new BBJoinDlg(BBLoginDlg.this);
-				BBLoginDlg.this.setVisible(false);
+				BBLoginDlg.this.dispose();
 			}
 		}
 	}	

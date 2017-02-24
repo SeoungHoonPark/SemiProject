@@ -1,5 +1,6 @@
 package Rental;
 import java.awt.BorderLayout;
+import java.io.IOException;
 
 /*
  * 	예약정보 확인 화면    
@@ -7,13 +8,14 @@ import java.awt.BorderLayout;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
+import Data.BBMainData;
 import Main.BBMain;
 
 public class BBRentalMain extends JPanel  {
-	BBMain main;
+	public BBMain main;
 	
-	BBFromRental FromRental;
-	BBToRental	 ToRental;  
+	public BBFromRental FromRental;
+	public BBToRental	 ToRental;  
 	
 	// 상호참조
 	
@@ -51,7 +53,40 @@ public class BBRentalMain extends JPanel  {
 		setSize(600, 570);
 		setVisible(true);
 		
+		
+		
 	}
+	//------------------------ 예약테이블 관련 함수. 마지막 테이블에 입력이 안되고 있음
+	public void RentalFInitProc(){
+		
+		BBMainData Data = new BBMainData();
+		
+		Data.protocol = 1301;
+		System.out.println("예약테이블 요청프로토콜 : "+Data.protocol);
+		
+		try {
+			//main.oout.writeObject(Data);  
+			main.oout.writeObject(Data);
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+	}
+	
+	public void RentalTInitProc(){
+		
+		BBMainData Data = new BBMainData();
+		
+		Data.protocol = 1302;
+		System.out.println("예약테이블 요청프로토콜 : "+Data.protocol);
+		
+		try {
+			//main.oout.writeObject(Data);  
+			main.oout.writeObject(Data);
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+	}
+	//------------------------ 예약테이블 관련 함수. 마지막 테이블에 입력이 안되고 있음
 
 /*  public static void main(String[] args) {
 		new BBRentalMain();

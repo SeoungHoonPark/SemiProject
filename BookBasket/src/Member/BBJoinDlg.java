@@ -1,37 +1,41 @@
-﻿package Member;
-import java.awt.FlowLayout;
+package Member;
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
 
 /*
  *  회원 가입 화면
  */
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
+
+import Data.*;
+import Member.BBJoinDlg.JoinEvent;
 
 public class BBJoinDlg /* extends JDialog */ extends JFrame {
- JTextField name_t; //이름
- JTextField id_t; //아이디
- JButton checkB; //아이디 중복 체크
- JPasswordField pw_t; // 비밀번호
- JPasswordField pw_t1; //비밀번호 재입력
- JTextField email_t; //이메일 아이디
- JTextField email_t1; //이메일 주소
- JComboBox phone_t1; // 010
- JTextField phone_t2; // 두번째자리
- JTextField phone_t3; //세번째 자리
- JButton chcek; //확인 버튼
- JButton cen; //취소 버튼
+	public JTextField name_t; //이름
+	public JTextField id_t; //아이디
+	public JButton checkB; //아이디 중복 체크
+	public JPasswordField pw_t; // 비밀번호
+	public JPasswordField pw_t1; //비밀번호 재입력
+	public JTextField email_t; //이메일 아이디
+	public JTextField email_t1; //이메일 주소
+	public JComboBox phone_t1; // 010
+	public JTextField phone_t2; // 두번째자리
+	public JTextField phone_t3; //세번째 자리
+	public JButton okB; //확인 버튼
+	public JButton canB; //취소 버튼
  
  BBLoginDlg loginD;
  public BBJoinDlg(BBLoginDlg login) {
 	 loginD = login;
 	 
   setTitle("책바구니 회원 가입");
-  setDefaultCloseOperation(this.DISPOSE_ON_CLOSE);
+  setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+  
+//실행창 위치 설정...
+	Dimension winSize = Toolkit.getDefaultToolkit().getScreenSize();
+	int locW = (winSize.width - 430)/2;
+	int locH = (winSize.height - 500)/2; 
+  
   this.setBounds(200,200,430,500);
   this.setLayout(null);
   //회원가입 
@@ -59,7 +63,7 @@ public class BBJoinDlg /* extends JDialog */ extends JFrame {
     
     //아이디 중복확인 버튼
     checkB = new JButton("Check");
-    checkB.setBounds(250,133,110,20);
+    checkB.setBounds(250,128,90,30);
     this.add(checkB);
     
     //비밀번호 입력
@@ -111,6 +115,9 @@ public class BBJoinDlg /* extends JDialog */ extends JFrame {
     phone_t1 = new JComboBox();
     phone_t1.setBounds(140,305,50,20);
     phone_t1.addItem("010");
+    phone_t1.addItem("011");
+    phone_t1.addItem("016");
+    phone_t1.addItem("019");
     this.add(phone_t1);
    
     //번호 두번째자리
@@ -122,13 +129,19 @@ public class BBJoinDlg /* extends JDialog */ extends JFrame {
     phone_t3 = new JTextField("");
     phone_t3.setBounds(280,305,70,20);
     this.add(phone_t3);
-    
+
     //확인 버튼 취소 버튼
-    chcek = new JButton("확인");
-    cen = new JButton("취소");
+    okB = new JButton("확인");
+    canB = new JButton("취소");
+    
+    JoinEvent evt = new JoinEvent();
+    checkB.addActionListener(evt);
+    okB.addActionListener(evt);
+    canB.addActionListener(evt);
+    
     JPanel p2 = new JPanel();
-    p2.add(chcek);
-    p2.add(cen);
+    p2.add(okB);
+    p2.add(canB);
     p2.setBounds(140,370,130,100);
     this.add(p2);
     
@@ -138,9 +151,102 @@ public class BBJoinDlg /* extends JDialog */ extends JFrame {
     
  }
 
+	public void checkProc(){
+ 		String idS = id_t.getText();
+ 		
+ 		BBMainData data = new BBMainData();
+ 		BBMemberData lginD = new BBMemberData();
+ 		
+ 		lginD.id = idS ;
+ 		data.protocol = 1001 ;
+ 		data.memberData = lginD ;
+ 		
+ 		try{
+ 			loginD.main.oout.writeObject(data);
+			System.out.println("데이터 넘기기 .................");
+ 		}
+ 		catch(Exception e){
+ 			e.printStackTrace();
+ 		}
+ 	}
+	
+ 	public void joinProc(){
+ 		String idS = id_t.getText();
+ 		String pwS1 = new String(pw_t.getPassword());
+ 		String pwS2 = new String(pw_t1.getPassword());
+ 		if(!(pwS1.equals(pwS2))){
+ 			pw_t1.setText("");
+ 			JOptionPane.showMessageDialog(null, "비밀번호를 확인하세요!");
+ 			return;
+ 		}
+ 		String nameS = name_t.getText();
+ 		
+ 		String emailS1 = email_t.getText();
+ 		String emailS2 = email_t1.getText();
+ 		String emailS = emailS1 +"@"+ emailS2 ;
+ 		
+ 		String phoneS1 = (String) phone_t1.getSelectedItem();
+ 		String phoneS2 = phone_t2.getText();
+ 		char[] ch1 = phoneS2.toCharArray();
+ 		String phoneS3 = phone_t3.getText();
+ 		char[] ch2 = phoneS3.toCharArray();
+ 		String phoneS = phoneS1 +"-"+phoneS2 + "-" + phoneS3;
+ 		for (int i = 0; i < ch1.length ; i++ ){
+ 			if(ch1[i] < '0' || ch1[i] > '9'){
+ 				phone_t2.setText("");
+ 	 			JOptionPane.showMessageDialog(null, "전화번호를 확인하세요!");
+ 	 			return;
+ 			}
+ 		}
+ 		for (int i = 0; i < ch1.length ; i++ ){
+ 			if(ch2[i] < '0' || ch2[i] > '9'){
+ 				phone_t3.setText("");
+ 	 			JOptionPane.showMessageDialog(null, "전화번호를 확인하세요!");
+ 	 			return;
+ 			}
+ 		}
+ 		
+ 		System.out.println("회원가입 전화번호 : " + phoneS);
+ 		
+ 		BBMainData data = new BBMainData();
+ 		BBMemberData memberData = new BBMemberData();
+ 		
+ 		memberData.id = idS ;
+ 		memberData.pw = pwS1 ;
+ 		memberData.name = nameS ;
+ 		memberData.email = emailS ;
+ 		memberData.phone = phoneS ;
+ 		data.protocol = 1011 ;
+ 		data.memberData = memberData ;
+ 		
+ 		try{
+ 			loginD.main.oout.writeObject(data);
+ 			System.out.println("회원가입 데이터 넘기기 .................");
+ 		}
+ 		catch(Exception e){
+ 			e.printStackTrace();
+ 		}
+ 	}
+ 	
+
 // public static void main(String[] args) {
 //  new BBJoinDlg();
 //  
 // }
- 
+ 	class JoinEvent implements ActionListener {
+ 		public void actionPerformed(ActionEvent e){
+ 			String str = e.getActionCommand();
+ 			
+ 			if (str.equals("Check")){
+ 				checkProc();
+ 			}
+ 			else if (str.equals("취소")){
+ 				loginD.setVisible(true);
+ 				BBJoinDlg.this.dispose();
+ 			}
+ 			else if (str.equals("확인")){
+ 				joinProc();
+ 			}
+ 		}
+ 	}
 }

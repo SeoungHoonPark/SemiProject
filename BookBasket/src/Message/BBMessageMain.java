@@ -127,7 +127,7 @@ public class BBMessageMain  extends JFrame {
 	int no;
 	class TableEvent extends MouseAdapter{
 		public void mousePressed(MouseEvent e){
-			System.out.println("e.getSource() " +e.getID());
+			//System.out.println("e.getSource() " +e.getID());
 			BBMainData data = new BBMainData();
 			data.protocol = 1402;
 			if(e.getID() == 501){
@@ -158,13 +158,14 @@ public class BBMessageMain  extends JFrame {
 	}
 	
 	void removeTable(){
-		int frows = fromTable.getColumnCount();
-		
+		int frows = fromTable.getRowCount();
+//		System.out.println("11111111111111111111111111 55555555555555556666666666 " + frows);
 		for(int i = 0; i < frows; i++){
 			fromModel.removeRow(0);
 		}
-		
-		int trows = toTable.getColumnCount();
+//		System.out.println("11111111111111111111111111 7777777777777 8888888888888");
+		int trows = toTable.getRowCount();
+//		System.out.println("11111111111111111111111111 999999999999900000000000000");
 		for(int i = 0; i < trows; i++){
 			toModel.removeRow(0);
 		}
@@ -189,19 +190,6 @@ public class BBMessageMain  extends JFrame {
 				o[3] = temp.msDate;
 			fromModel.addRow(o);
 		}
-		
-//		Iterator	iter2 = main.data.msgToList.iterator();		
-//		while(iter2.hasNext()){
-//			System.out.println("ToList === " +  main.data.msgToList.toString());
-//			BBMsgData temp = (BBMsgData) iter2.next();
-//			
-//				Object[] o = new Object[4];
-//				o[0] = temp.no;
-//				o[1] = temp.receiveId;
-//				o[2] = temp.msTxt;
-//				o[3] = temp.msDate;
-//			toModel.addRow(o);
-//		}
 	}
 	
 	public void DisplayModel2(){

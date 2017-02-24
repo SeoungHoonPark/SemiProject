@@ -1,0 +1,177 @@
+1 - 2 - 7 - 9 - 5 - 6 - 3 - 4 - 8 
+
+1. BMCompany (체인점 정보 관리 테이블)
+create table BMCompany(
+c_Code varchar2(20) PRIMARY KEY,
+c_Name varchar2(20) NOT NULL,
+c_Addr varchar2(100) NOT NULL,
+c_Tel varchar2(20) NOT NULL,
+c_Out char(1) NOT NULL,
+c_JoinDate date NOT NULL,
+c_LeaveDate date
+);
+
+insert into BMCompany values('100', '구로 1호점', '서울시 구로구 신림동 11-1', '02-111-1111', 'Y', sysdate, null);
+insert into BMCompany values('200', '구로 2호점', '서울시 구로구 신림동 22-2', '02-222-2222', 'Y', sysdate, null);
+insert into BMCompany values('300', '구로 3호점', '서울시 구로구 신림동 33-3', '02-333-3333', 'Y', sysdate, null);
+insert into BMCompany values('400', '구로 4호점', '서울시 구로구 신림동 44-4', '02-444-4444', 'Y', sysdate, null);
+insert into BMCompany values('500', '구로 5호점', '서울시 구로구 신림동 55-5', '02-555-5555', 'N', sysdate, sysdate+1);
+
+2. BMAdmin (실제 프로그램을 실행하는 관리자 정보 테이블)
+create table BMAdmin(
+a_Code varchar2(20) NOT NULL REFERENCES BMCompany(c_Code),
+a_Id varchar2(20) PRIMARY KEY,
+a_Pw varchar2(20) NOT NULL,
+a_Name varchar2(20) NOT NULL,
+a_Tel varchar2(20) NOT NULL
+);
+
+insert into BMAdmin values('100', 'admin', '1234', '관리자', '010-1234-5678');
+insert into BMAdmin values('200', 'admin2', '1234', '2호점관리자', '010-2222-2222');
+insert into BMAdmin values('300', 'admin3', '1234', '3호점관리자', '010-3333-3333');
+insert into BMAdmin values('400', 'admin4', '1234', '4호점관리자', '010-4444-4444');
+insert into BMAdmin values('500', 'admin5', '1234', '5호점관리자', '010-5555-5555');
+
+3. BMCustormer (고객 정보 관리 테이블)
+create table BMCustormer(
+bmc_No number(7) PRIMARY KEY,
+bmc_Name varchar2(20) NOT NULL,
+bmc_Tel varchar2(20) NOT NULL UNIQUE,
+bmc_Gen char(1) NOT NULL,
+bmc_Mail varchar2(20) UNIQUE,
+bmc_Dno number(7) REFERENCES BMDesigner(bmdd_No),
+bmc_Bigo varchar2(2000), 
+bmc_Code varchar2(20)
+);
+
+insert into BMCustormer values(
+(SELECT NVL(MAX(bmc_No), 0) + 1 FROM BMCustormer),
+'박진관', '010-5271-0198', 'M', '1111@nate.com', '1', '비고입니다.', '100'
+);
+insert into BMCustormer values(
+(SELECT NVL(MAX(bmc_No), 0) + 1 FROM BMCustormer),
+'홍길동', '010-2222-2222', 'M', '2222@nate.com', '1', '비고입니다.', '100'
+);
+insert into BMCustormer values(
+(SELECT NVL(MAX(bmc_No), 0) + 1 FROM BMCustormer),
+'박아지', '010-3333-3333', 'F', '3333@nate.com', '1', '비고입니다.', '100'
+);
+insert into BMCustormer values(
+(SELECT NVL(MAX(bmc_No), 0) + 1 FROM BMCustormer),
+'장독대', '010-4444-4444', 'F', '4444@nate.com', '1', '비고입니다.', '100'
+);
+insert into BMCustormer values(
+(SELECT NVL(MAX(bmc_No), 0) + 1 FROM BMCustormer),
+'노길동', '010-5555-5555', 'M', '5555@nate.com', '2', '비고입니다.', '200'
+);
+
+
+4. BMDesign (고객의 시술내역을 기억하는 테이블)
+create table BMDesign(
+bmd_No number(7) PRIMARY KEY,
+bmd_Cno number(7) NOT NULL REFERENCES BMCustormer(bmc_No),
+bmd_Date date NOT NULL,
+bmd_Snote varchar2(200) ,
+bmd_Bigo varchar2(2000) ,
+bmd_Dno number(7) NOT NULL REFERENCES BMDesigner(bmdd_No),
+bmd_Pay number(7) NOT NULL,
+bmd_Code number(7) NOT NULL REFERENCES BMDesignKind(bmdk_Code)
+);
+
+5. BMDesignKind (시술종류를 기억할 테이블)
+create table BMDesignKind(
+bmdk_Code number(7) PRIMARY KEY,
+bmdk_Name varchar2(20) NOT NULL,
+bmdk_Pay number(7) NOT NULL 
+);
+
+insert into BMDesignKind values(1, '커트', 10000);
+insert into BMDesignKind values(2, '염색', 30000);
+insert into BMDesignKind values(3, '파마', 50000);
+insert into BMDesignKind values(4, '두피관리', 70000);
+
+
+
+6. BMDesigner (디자이너 정보 관리 테이블)
+create table BMDesigner(
+bmdd_No number(7) PRIMARY KEY,
+bmdd_Name varchar2(20) NOT NULL,
+bmdd_Gen char(1) NOT NULL,
+bmdd_Birth varchar2(20) NOT NULL,
+bmdd_Tel varchar2(20) NOT NULL UNIQUE,
+bmdd_Addr varchar2(100) NOT NULL,
+bmdd_mail varchar2(20) NOT NULL UNIQUE,
+bmdd_Date date NOT NULL,
+bmdd_Code char(1) NOT NULL REFERENCES BMDesignerRank(bmdr_Code),
+bmdd_Dname varchar2(20) NOT NULL UNIQUE,
+bmdd_Out char(1) NOT NULL,
+bmdd_Odate date,
+bmdd_sCode varchar2(20) NOT NULL REFERENCES BMCompany(c_Code)
+);
+
+insert into BMDesigner values
+((SELECT NVL(MAX(bmdd_No), 0) + 1 FROM BMDesigner), '홍길동', 'M', '890101', '010-1111-1111', '서울시 구로구 신림동', 'a050@naver.com', sysdate, '1', '맥콜', 'N', null, '100');
+insert into BMDesigner values
+((SELECT NVL(MAX(bmdd_No), 0) + 1 FROM BMDesigner), '아무개', 'M', '900202', '010-2222-2222', '인천시 구로구 신림동', 'b050@daum.net', sysdate, '2', '사이다', 'N', null, '100');
+insert into BMDesigner values
+((SELECT NVL(MAX(bmdd_No), 0) + 1 FROM BMDesigner), '박아지', 'F', '600303', '010-3333-3333', '경상북도 구로구 신림동', 'c050@gmail.com', sysdate, '3', '콜라', 'N', null, '100');
+insert into BMDesigner values
+((SELECT NVL(MAX(bmdd_No), 0) + 1 FROM BMDesigner), '장독대', 'M', '910404', '010-4444-4444', '전라남도 구로구 신림동', 'd050@nate.com', sysdate, '4', '양주', 'N', null, '100');
+insert into BMDesigner values
+((SELECT NVL(MAX(bmdd_No), 0) + 1 FROM BMDesigner), '명란젓', 'F', '850505', '010-5555-5555', '강원도 구로구 신림동', 'e050@naver.com', sysdate, '5', '소주', 'Y', sysdate+1, '100');
+
+7. BMDesignerRank (직급종류를 기억할 테이블)
+create table BMDesignerRank(
+bmdr_Code char(1) PRIMARY KEY,
+bmdr_Name varchar2(10) NOT NULL
+);
+
+insert into BMDesignerRank values('1', '원장');
+insert into BMDesignerRank values('2', '부원장');
+insert into BMDesignerRank values('3', '실장');
+insert into BMDesignerRank values('4', '매니저');
+insert into BMDesignerRank values('5', '디자이너');
+insert into BMDesignerRank values('6', '스텝');
+
+
+8. BMAttend (디자이너 출퇴근 관리 정보 테이블)
+create table BMAttend(
+bma_No number(7) PRIMARY KEY,
+bma_Date date,
+bma_Dno number(7) NOT NULL UNIQUE REFERENCES BMDesigner(bmdd_No),
+bma_Code char(1) NOT NULL REFERENCES BMAttendKind(bmak_Code)
+);
+
+9. BMAttendKind (근태종류를 기억할 테이블)
+create table BMAttendKind(
+bmak_Code char(1) PRIMARY KEY,
+bmak_Kind varchar2(10) NOT NULL
+);
+
+insert into BMAttendKind values('1', '출근');
+insert into BMAttendKind values('2', '퇴근');
+insert into BMAttendKind values('3', '지각');
+insert into BMAttendKind values('4', '조퇴');
+
+
+
+
+
+
+drop table BMAttend purge;
+drop table BMDesign  purge;
+drop table BMCustormer purge;
+drop table BMDesigner purge;
+drop table BMDesignKind purge;
+drop table BMAttendKind purge;
+drop table BMDesignerRank purge;
+drop table BMAdmin purge;
+drop table BMCompany purge;
+ 
+
+
+
+
+
+
+
